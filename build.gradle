@@ -4,6 +4,8 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 
 group = 'com.kodilla'
 version = '0.0.1-SNAPSHOT'
@@ -24,14 +26,34 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     //EMAIL
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    
+
+    //GOOGLE GSON
+    compile('com.google.code.gson:gson:2.8.2')
+
+    //ACTUATOR
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+
+    //LOMBOK
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //SWAGGER
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
+
+    //RUNTIME DATABASE
+    //runtimeOnly 'org.postgresql:postgresql'
+
+    //TRY DATABASE
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    //TEST DATABASE
+    testRuntime('com.h2database:h2')
+
 }
