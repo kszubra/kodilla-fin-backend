@@ -18,8 +18,10 @@ public class WeatherClient {
     private final RestTemplate restTemplate;
     private final AdminConfig adminConfig;
 
+    private final String uri = "https://api.weatherbit.io/v2.0/forecast/daily";
+
     public WeatherForecastDto getWeatherForecast(String city){
-        URI url = UriComponentsBuilder.fromHttpUrl("https://api.weatherbit.io/v2.0/forecast/daily")
+        URI url = UriComponentsBuilder.fromHttpUrl(uri)
                 .queryParam("key", adminConfig.getWeatherApiKey())
                 .queryParam("lang", "en")
                 .queryParam("units", "M")
