@@ -1,5 +1,8 @@
 package com.kodilla.kodillafinalbackend.skyscanner;
 
+import com.kodilla.kodillafinalbackend.config.AdminConfig;
+import com.kodilla.kodillafinalbackend.skyscanner.domain.dto.CityAirportsResultDto;
+import com.kodilla.kodillafinalbackend.skyscanner.domain.dto.FlightConnectionsResultDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -21,24 +24,33 @@ import java.util.Optional;
 @Slf4j
 public class SkyScannerClient {
     private final RestTemplate restTemplate;
+    private final AdminConfig adminConfig;
 
+    /****
+     * Request except uri requires sending header with X-Rapid host and key, because access to SkyScanner is done through rapidapi.com, not directly at SkyScanner
+     */
     private HttpHeaders getSkyScannerHeader() {
-        /****
-         * Request except uri requires sending header with X-Rapid host and key, because access to SkyScanner is done through rapidapi.com, not directly at SkyScanner
-         */
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com");
-        headers.add("X-RapidAPI-Key", "61982aa7b9msh105c0da561e3ef5p12e7abjsn538c492aae0f");
+        headers.add("X-RapidAPI-Host", adminConfig.getSkyScannerApiHeaderHost());
+        headers.add("X-RapidAPI-Key", adminConfig.getSkyScannerApiHeaderKey());
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         return headers;
     }
 
+    /***
+     *
+     * @param originAirportCode an IATA airport code of the departure airport
+     * @param destinationAirportCode an IATA airport code of the destination airport
+     * @param date date of your departure
+     * @return
+     */
     public FlightConnectionsResultDto getFlightConnections(String originAirportCode, String destinationAirportCode, LocalDate date){
         HttpHeaders headers = this.getSkyScannerHeader();
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-        URI url = UriComponentsBuilder.fromHttpUrl("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/PL/PLN/pl-PL")
+        URI url = UriComponentsBuilder.fromHttpUrl(adminConfig.getSkyScannerApiBaseUrl())
+                .path("browseroutes/v1.0/PL/PLN/pl-PL/")
                 .pathSegment(originAirportCode)
                 .pathSegment(destinationAirportCode)
                 .pathSegment(date.toString())
@@ -58,7 +70,9 @@ public class SkyScannerClient {
         HttpHeaders headers = this.getSkyScannerHeader();
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-        URI url = UriComponentsBuilder.fromHttpUrl("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/PL/PLN/pl-PL/?query=" + city)
+        URI url = UriComponentsBuilder.fromHttpUrl(adminConfig.getSkyScannerApiBaseUrl())
+                .path("autosuggest/v1.0/PL/PLN/pl-PL/")
+                .queryParam("query", city)
                 .build().encode().toUri();
 
         try{

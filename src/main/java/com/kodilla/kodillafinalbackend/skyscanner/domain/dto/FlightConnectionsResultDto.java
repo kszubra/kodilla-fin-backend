@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.weather;
+package com.kodilla.kodillafinalbackend.skyscanner.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,12 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherForecastDto {
+public class FlightConnectionsResultDto {
 
-    @JsonProperty("data")
-    private List<DailyWeatherForecastDto> weatherForecasts;
-
-    @JsonProperty("city_name")
-    private String city;
+    @JsonProperty("Quotes")
+    private List<FlightDto> flights;
 
 }

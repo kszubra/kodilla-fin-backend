@@ -1,5 +1,7 @@
 package com.kodilla.kodillafinalbackend.skyscanner;
 
+import com.kodilla.kodillafinalbackend.skyscanner.domain.Airport;
+import com.kodilla.kodillafinalbackend.skyscanner.domain.Flight;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

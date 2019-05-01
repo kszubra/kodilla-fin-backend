@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.skyscanner;
+package com.kodilla.kodillafinalbackend.skyscanner.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,8 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CityAirportsResultDto {
+public class OutboundLegDto {
+    @JsonProperty("CarrierIds")
+    private List<Integer> carriersIds;
 
-    @JsonProperty("Places")
-    private List<AirportDto> airports;
+    @JsonProperty("DepartureDate")
+    private String departureDate;
+
 }

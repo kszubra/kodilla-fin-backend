@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.skyscanner;
+package com.kodilla.kodillafinalbackend.skyscanner.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class FlightConnectionsResult {
-    private List<Flight> connections;
+public class CityAirportsResult {
+    private List<Airport> airports;
 }

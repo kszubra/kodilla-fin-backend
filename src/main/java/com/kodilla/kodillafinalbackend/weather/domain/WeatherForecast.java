@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.weather;
+package com.kodilla.kodillafinalbackend.weather.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

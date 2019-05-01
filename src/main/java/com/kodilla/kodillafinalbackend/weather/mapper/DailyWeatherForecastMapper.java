@@ -1,5 +1,7 @@
-package com.kodilla.kodillafinalbackend.weather;
+package com.kodilla.kodillafinalbackend.weather.mapper;
 
+import com.kodilla.kodillafinalbackend.weather.domain.DailyWeatherForecast;
+import com.kodilla.kodillafinalbackend.weather.domain.dto.DailyWeatherForecastDto;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

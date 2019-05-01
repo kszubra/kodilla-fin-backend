@@ -1,6 +1,7 @@
 package com.kodilla.kodillafinalbackend.weather;
 
 import com.kodilla.kodillafinalbackend.config.AdminConfig;
+import com.kodilla.kodillafinalbackend.weather.domain.dto.WeatherForecastDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

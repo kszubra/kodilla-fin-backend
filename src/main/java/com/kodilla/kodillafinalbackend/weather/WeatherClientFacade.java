@@ -1,5 +1,7 @@
 package com.kodilla.kodillafinalbackend.weather;
 
+import com.kodilla.kodillafinalbackend.weather.domain.WeatherForecast;
+import com.kodilla.kodillafinalbackend.weather.mapper.WeatherForecastMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

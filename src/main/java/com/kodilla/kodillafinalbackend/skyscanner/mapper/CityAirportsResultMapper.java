@@ -1,5 +1,7 @@
-package com.kodilla.kodillafinalbackend.skyscanner;
+package com.kodilla.kodillafinalbackend.skyscanner.mapper;
 
+import com.kodilla.kodillafinalbackend.skyscanner.domain.CityAirportsResult;
+import com.kodilla.kodillafinalbackend.skyscanner.domain.dto.CityAirportsResultDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.skyscanner;
+package com.kodilla.kodillafinalbackend.skyscanner.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

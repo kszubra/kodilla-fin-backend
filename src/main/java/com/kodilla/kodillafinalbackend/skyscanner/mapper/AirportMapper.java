@@ -1,5 +1,7 @@
-package com.kodilla.kodillafinalbackend.skyscanner;
+package com.kodilla.kodillafinalbackend.skyscanner.mapper;
 
+import com.kodilla.kodillafinalbackend.skyscanner.domain.Airport;
+import com.kodilla.kodillafinalbackend.skyscanner.domain.dto.AirportDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

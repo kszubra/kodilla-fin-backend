@@ -7,10 +7,18 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class AdminConfig {
-
     @Value("${weather.api.key}")
     private String weatherApiKey;
 
     @Value("${weather.api.baseurl}")
     private String weatherApiBaseUrl;
+
+    @Value("${skyscanner.api.header.host}")
+    private String skyScannerApiHeaderHost;
+
+    @Value("${skyscanner.api.header.key}")
+    private String skyScannerApiHeaderKey;
+
+    @Value("${skyscanner.api.baseurl}")
+    private String skyScannerApiBaseUrl;
 }
