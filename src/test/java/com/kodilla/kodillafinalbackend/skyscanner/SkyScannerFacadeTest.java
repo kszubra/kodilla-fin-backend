@@ -24,7 +24,17 @@ public class SkyScannerFacadeTest {
         //Then
         assertNotNull(testConnections.getConnections());
         assertTrue(testConnections.getConnections().size() > 0);
+    }
 
+    @Test
+    public void testGetAirportsInCity() {
+        //Given
+        CityAirportsResult testAirports = skyScannerFacade.getAirportsInCity("Moscow");
 
+        //Then
+        assertNotNull(testAirports);
+        assertTrue(testAirports.getAirports().size() > 0);
+        testAirports.getAirports().stream()
+                .forEach(e -> assertNotEquals("NOT AIRPORT", e.getAirportCode() ) );
     }
 }
