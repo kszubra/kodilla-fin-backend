@@ -10,4 +10,7 @@ public class AdminConfig {
 
     @Value("${weather.api.key}")
     private String weatherApiKey;
+
+    @Value("${weather.api.baseurl}")
+    private String weatherApiBaseUrl;
 }
