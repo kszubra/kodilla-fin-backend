@@ -22,11 +22,13 @@ public class SkyScannerFacadeTest {
     @Test
     public void testGetFlightConnections() {
         //Given
-        List<Flight> testConnections = skyScannerFacade.getFlightConnections("WAW", "HAJ", LocalDate.of(2019, 06, 07));
+        List<Flight> testConnections = skyScannerFacade.getFlightConnections("WAW", "TXL", LocalDate.of(2019, 06, 07));
 
         //Then
         assertNotNull(testConnections);
         assertTrue(testConnections.size() > 0);
+        testConnections.stream()
+                .forEach(e -> assertEquals(LocalDate.of(2019, 06, 07), e.getDepartureDate() ) );
     }
 
     @Test

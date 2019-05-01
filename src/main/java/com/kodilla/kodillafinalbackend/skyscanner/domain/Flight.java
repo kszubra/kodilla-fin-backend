@@ -17,4 +17,14 @@ public class Flight {
     private boolean direct;
     private List<Integer> carriersIds;
     private LocalDate departureDate;
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "minPrice=" + minPrice +
+                ", direct=" + direct +
+                ", carriersIds=" + carriersIds +
+                ", departureDate=" + departureDate +
+                '}';
+    }
 }
