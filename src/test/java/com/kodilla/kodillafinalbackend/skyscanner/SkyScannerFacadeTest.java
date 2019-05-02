@@ -1,7 +1,8 @@
 package com.kodilla.kodillafinalbackend.skyscanner;
 
-import com.kodilla.kodillafinalbackend.skyscanner.domain.Airport;
-import com.kodilla.kodillafinalbackend.skyscanner.domain.Flight;
+import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
+import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Airport;
+import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Flight;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class SkyScannerFacadeTest {
     @Test
     public void testGetFlightConnections() {
         //Given
-        List<Flight> testConnections = skyScannerFacade.getFlightConnections("WAW", "TXL", LocalDate.of(2019, 06, 07));
+        List<Flight> testConnections = skyScannerFacade.getFlightConnections("WAW", "HAJ", LocalDate.of(2019, 06, 07));
 
         //Then
         assertNotNull(testConnections);

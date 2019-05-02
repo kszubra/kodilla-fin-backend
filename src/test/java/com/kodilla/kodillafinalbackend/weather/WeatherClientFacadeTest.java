@@ -1,6 +1,7 @@
 package com.kodilla.kodillafinalbackend.weather;
 
-import com.kodilla.kodillafinalbackend.weather.domain.WeatherForecast;
+import com.kodilla.kodillafinalbackend.external.api.weather.WeatherClientFacade;
+import com.kodilla.kodillafinalbackend.external.api.weather.domain.WeatherForecast;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
