@@ -6,18 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FlightConnectionsResultDto {
+public class CarrierDto {
 
-    @JsonProperty("Quotes")
-    private List<FlightDto> flights;
+    @JsonProperty("CarrierId")
+    private int carrierId;
 
-    @JsonProperty("Carriers")
-    private List<CarrierDto> carriers;
-
+    @JsonProperty("Name")
+    private String carrierName;
 }

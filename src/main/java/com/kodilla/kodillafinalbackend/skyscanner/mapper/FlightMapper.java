@@ -6,23 +6,30 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
 public class FlightMapper {
 
-    private Flight mapToFlight(FlightDto dto) {
+    private List<String> mapToCarrierName(List<Integer> carrierIds, Map<Integer, String> carrierIdAndName) {
+        return carrierIds.stream()
+                .map(carrierIdAndName::get)
+                .collect(Collectors.toList());
+    }
+
+    private Flight mapToFlight(FlightDto dto, Map<Integer, String> carrierIdAndName) {
         return Flight.builder()
-                .carriersIds( dto.getOutboundLeg().getCarriersIds() )
+                .carriers( this.mapToCarrierName(dto.getOutboundLeg().getCarriersIds(), carrierIdAndName ))
                 .departureDate( LocalDate.parse(dto.getOutboundLeg().getDepartureDate().substring(0, 10) ))
                 .minPrice( dto.getMinPrice() )
                 .direct( dto.isDirect() )
                 .build();
     }
 
-    public List<Flight> mapToFlightList(List<FlightDto> dtoList) {
+    public List<Flight> mapToFlightList(List<FlightDto> dtoList, Map<Integer, String> carrierIdAndName) {
         return dtoList.stream()
-                .map(this::mapToFlight)
+                .map( dto -> mapToFlight(dto, carrierIdAndName) )
                 .collect(Collectors.toList());
     }
 }

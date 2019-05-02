@@ -28,7 +28,10 @@ public class SkyScannerFacadeTest {
         assertNotNull(testConnections);
         assertTrue(testConnections.size() > 0);
         testConnections.stream()
-                .forEach(e -> assertEquals(LocalDate.of(2019, 06, 07), e.getDepartureDate() ) );
+                .forEach(e -> {
+                    assertEquals(LocalDate.of(2019, 06, 07), e.getDepartureDate() );
+                    System.out.println(e);
+                } );
     }
 
     @Test
@@ -42,4 +45,5 @@ public class SkyScannerFacadeTest {
         testAirports.stream()
                 .forEach(e -> assertNotEquals("NOT AIRPORT", e.getAirportCode() ) );
     }
+
 }

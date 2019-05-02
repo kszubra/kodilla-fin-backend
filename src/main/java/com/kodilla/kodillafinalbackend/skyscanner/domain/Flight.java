@@ -15,7 +15,7 @@ import java.util.List;
 public class Flight {
     private int minPrice;
     private boolean direct;
-    private List<Integer> carriersIds;
+    private List<String> carriers;
     private LocalDate departureDate;
 
     @Override
@@ -23,7 +23,7 @@ public class Flight {
         return "Flight{" +
                 "minPrice=" + minPrice +
                 ", direct=" + direct +
-                ", carriersIds=" + carriersIds +
+                ", carriers=" + carriers +
                 ", departureDate=" + departureDate +
                 '}';
     }
