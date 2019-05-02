@@ -11,7 +11,10 @@ import java.util.Map;
 public class CountryMapper {
 
     private Country mapToCountry(Map<String, String> response) {
-        return new Country(response.get("name"), response.get("capital"));
+        Country country = new Country();
+        country.setName( response.get("name") );
+        country.setCapital( response.get("capital") );
+        return country;
     }
 
     public List<Country> mapToCountryList(Object  response) {
