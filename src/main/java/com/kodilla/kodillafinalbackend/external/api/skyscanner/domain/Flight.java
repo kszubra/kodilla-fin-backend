@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @Builder(toBuilder = true)
 public class Flight {
-    private int minPrice;
+    private BigDecimal minPrice;
     private boolean direct;
     private List<String> carriers;
     private LocalDate departureDate;

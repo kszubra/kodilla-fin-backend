@@ -8,7 +8,6 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 @Entity
 @Table(name="COUNTRIES")
@@ -16,6 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Country {
 
     @Id
@@ -40,17 +40,4 @@ public class Country {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Country country = (Country) o;
-        return name.equals(country.name) &&
-                capital.equals(country.capital);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, capital);
-    }
 }

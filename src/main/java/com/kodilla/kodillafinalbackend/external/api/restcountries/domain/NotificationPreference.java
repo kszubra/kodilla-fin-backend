@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
+@EqualsAndHashCode
 public class NotificationPreference {
 
     @Id
@@ -23,7 +24,7 @@ public class NotificationPreference {
     private Long id;
 
     @NotNull
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
 
@@ -39,5 +40,4 @@ public class NotificationPreference {
     @NotNull
     @Column(name="MAXIMUM_PRICE_PLN")
     private BigDecimal maxPrice;
-
 }

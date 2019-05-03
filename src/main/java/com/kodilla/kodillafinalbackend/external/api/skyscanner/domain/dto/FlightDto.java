@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class FlightDto {
 
     @JsonProperty("MinPrice")
-    private int minPrice;
+    private BigDecimal minPrice;
 
     @JsonProperty("Direct")
     private boolean direct;

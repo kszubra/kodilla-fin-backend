@@ -7,8 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="USERS")
@@ -17,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
+@EqualsAndHashCode
 public class User {
 
     @Id
@@ -56,23 +56,6 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<NotificationPreference> notificationPreferences;
+    private Set<NotificationPreference> notificationPreferences;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return name.equals(user.name) &&
-                surname.equals(user.surname) &&
-                email.equals(user.email) &&
-                securePassword.equals(user.securePassword) &&
-                registered.equals(user.registered) &&
-                notificationPreferences.equals(user.notificationPreferences);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, surname, email, securePassword, registered, notificationPreferences);
-    }
 }
