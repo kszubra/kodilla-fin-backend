@@ -30,7 +30,7 @@ public class CountryService {
      * @return true if @param country DOES NOT exist in database
      */
     private Boolean notExists(Country country) {
-        return !countryRepository.existsByName( country.getName() );
+        return !this.exists(country);
     }
 
     /**
