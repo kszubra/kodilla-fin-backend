@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.external.api.restcountries.domain;
+package com.kodilla.kodillafinalbackend.domain;
 
 import lombok.*;
 
@@ -31,7 +31,7 @@ public class NotificationPreference {
     @NotNull
     @Column(name="CITY")
     @Min(value = 2, message = "City name must be at least 2 characters long")
-    private String City;
+    private String city;
 
     @NotNull
     @Column(name="MINIMUM_TEMPERATURE_CELSIUS")

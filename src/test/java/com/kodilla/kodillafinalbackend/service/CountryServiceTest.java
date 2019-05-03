@@ -65,7 +65,10 @@ public class CountryServiceTest {
     @Test
     public void testGetCountryByName() {
         //Given
-        Country testCountryOne = new Country(1L, "Rwanda", "Kigali");
+        Country testCountryOne = new Country();
+        testCountryOne.setName("Rwanda");
+        testCountryOne.setCapital("Kigali");
+        countryService.addCountry(testCountryOne);
 
         //When
         countryService.addCountry(testCountryOne);

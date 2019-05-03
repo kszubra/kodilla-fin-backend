@@ -1,7 +1,7 @@
 package com.kodilla.kodillafinalbackend.service;
 
 import com.kodilla.kodillafinalbackend.exceptions.UserNotFoundException;
-import com.kodilla.kodillafinalbackend.external.api.restcountries.domain.User;
+import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

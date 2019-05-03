@@ -1,7 +1,7 @@
 package com.kodilla.kodillafinalbackend.repository;
 
-import com.kodilla.kodillafinalbackend.external.api.restcountries.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.external.api.restcountries.domain.User;
+import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
+import com.kodilla.kodillafinalbackend.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
