@@ -20,7 +20,6 @@ public class NotificationPreference {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
     private Long id;
 
     @NotNull
@@ -29,15 +28,12 @@ public class NotificationPreference {
     private User user;
 
     @NotNull
-    @Column(name="CITY")
     @Min(value = 2, message = "City name must be at least 2 characters long")
     private String city;
 
     @NotNull
-    @Column(name="MINIMUM_TEMPERATURE_CELSIUS")
     private Integer minTemperature;
 
     @NotNull
-    @Column(name="MAXIMUM_PRICE_PLN")
     private BigDecimal maxPrice;
 }

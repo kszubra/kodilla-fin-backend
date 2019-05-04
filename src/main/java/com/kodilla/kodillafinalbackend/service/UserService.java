@@ -1,5 +1,6 @@
 package com.kodilla.kodillafinalbackend.service;
 
+import com.kodilla.kodillafinalbackend.exceptions.UserEmailAlreadyExistsException;
 import com.kodilla.kodillafinalbackend.exceptions.UserNotFoundException;
 import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.repository.UserRepository;
@@ -35,16 +36,15 @@ public class UserService {
     }
 
     /**
-     * Adds new user to the database. Before checks if it already exists. If exists, returns blank user.
+     * Adds new user to the database. Before checks if it already exists.
      *
      * @param user
      * @return
      */
     public User addUser(final User user) {
         if( this.exists(user) ) {
-            return new User();
+            throw new UserEmailAlreadyExistsException();
         }
-
         return userRepository.save(user);
     }
 

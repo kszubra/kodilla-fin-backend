@@ -3,8 +3,8 @@ package com.kodilla.kodillafinalbackend.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
@@ -22,30 +22,24 @@ public class User {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
     private Long id;
 
-    @NotNull
-    @Size(min=3, max=20, message="Value must be 3-20 characters long")
-    @Column(name="NAME")
+    @Size(min=3, max=20, message="Surname must be 3-20 characters long")
     private String name;
 
     @NotNull
-    @Size(min=3, max=20, message="Value must be 3-20 characters long")
-    @Column(name="SURNAME")
+    @Size(min=3, max=20, message="Surname must be 3-20 characters long")
     private String surname;
 
     @NotNull
-    @Email(message="Value must be a valid email address")
-    @Column(name="EMAIL", unique = true)
+    @Pattern(regexp = ".{3,}@.{2,}\\..{2,3}", message = "email format is not proper")
+    @Column(unique = true)
     private String email;
 
     @NotNull
-    @Size(min=8, max=20, message="Value must be 8-20 characters long")
     private String securePassword;
 
     @NotNull
-    @Column(name="REGISTERED")
     private LocalDate registered;
 
     @NotNull
@@ -54,7 +48,7 @@ public class User {
             targetEntity = NotificationPreference.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private Set<NotificationPreference> notificationPreferences;
 
