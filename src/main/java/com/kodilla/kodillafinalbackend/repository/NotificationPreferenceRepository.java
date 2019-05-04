@@ -14,9 +14,6 @@ public interface NotificationPreferenceRepository extends CrudRepository<Notific
     NotificationPreference save(NotificationPreference preference);
 
     @Override
-    Optional<NotificationPreference> findById(Long id);
-
-    @Override
     List<NotificationPreference> findAll();
 
     @Override
@@ -24,6 +21,9 @@ public interface NotificationPreferenceRepository extends CrudRepository<Notific
 
     @Override
     void deleteById(Long id);
+
+    @Override
+    Optional<NotificationPreference> findById(Long id);
 
     void deleteAllByUser(User user);
 

@@ -3,9 +3,11 @@ package com.kodilla.kodillafinalbackend.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Objects;
 
 @Entity
 @Table(name="NOTIFICATION_PREFERENCES")
@@ -14,7 +16,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-@EqualsAndHashCode
 public class NotificationPreference {
 
     @Id
@@ -28,7 +29,7 @@ public class NotificationPreference {
     private User user;
 
     @NotNull
-    @Min(value = 2, message = "City name must be at least 2 characters long")
+    @Size(min = 2, message = "City name must be at least 2 characters long")
     private String city;
 
     @NotNull
@@ -36,4 +37,22 @@ public class NotificationPreference {
 
     @NotNull
     private BigDecimal maxPrice;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NotificationPreference that = (NotificationPreference) o;
+        return id.equals(that.id) &&
+                user.equals(that.user) &&
+                city.equals(that.city) &&
+                minTemperature.equals(that.minTemperature) &&
+                maxPrice.setScale(2, RoundingMode.HALF_EVEN)
+                        .equals(that.maxPrice.setScale(2, RoundingMode.HALF_EVEN));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, city, minTemperature, maxPrice);
+    }
 }

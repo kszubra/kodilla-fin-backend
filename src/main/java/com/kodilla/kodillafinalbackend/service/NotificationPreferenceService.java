@@ -46,7 +46,6 @@ public class NotificationPreferenceService {
         return notificationPreferenceRepository.findAllByUser(user);
     }
 
-
     public void deleteAllPreferences() {
         notificationPreferenceRepository.deleteAll();
     }
