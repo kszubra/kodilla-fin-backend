@@ -59,6 +59,7 @@ public class NotificationPreferenceServiceTest {
 
         //Then
         assertEquals(testPreference, result);
+        assertTrue( testUser.getNotificationPreferences().contains(testPreference) );
     }
 
     @Test

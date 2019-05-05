@@ -7,6 +7,7 @@ import com.kodilla.kodillafinalbackend.repository.NotificationPreferenceReposito
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -14,8 +15,17 @@ import java.util.List;
 public class NotificationPreferenceService {
     private final NotificationPreferenceRepository notificationPreferenceRepository;
 
+    /**
+     * Adds notification preference to the database and parent object's set of children objects.
+     *
+     * @param preference
+     * @return
+     */
+    @Transactional
     public NotificationPreference addPreference(NotificationPreference preference) {
-        return notificationPreferenceRepository.save(preference);
+        notificationPreferenceRepository.save(preference);
+        preference.getUser().getNotificationPreferences().add(preference);
+        return preference;
     }
 
     public NotificationPreference getPreferenceById(Long id) {
