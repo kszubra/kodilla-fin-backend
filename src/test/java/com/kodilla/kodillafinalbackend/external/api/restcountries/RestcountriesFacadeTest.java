@@ -1,7 +1,7 @@
 package com.kodilla.kodillafinalbackend.external.api.restcountries;
 
-import com.kodilla.kodillafinalbackend.external.api.RestcountriesFacade;
-import com.kodilla.kodillafinalbackend.external.api.domain.Country;
+import com.kodilla.kodillafinalbackend.external.api.countries.RestcountriesFacade;
+import com.kodilla.kodillafinalbackend.external.api.countries.domain.Country;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

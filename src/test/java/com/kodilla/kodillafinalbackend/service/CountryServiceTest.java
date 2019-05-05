@@ -1,7 +1,7 @@
 package com.kodilla.kodillafinalbackend.service;
 
 import com.kodilla.kodillafinalbackend.exceptions.CountryNotFoundException;
-import com.kodilla.kodillafinalbackend.external.api.domain.Country;
+import com.kodilla.kodillafinalbackend.external.api.countries.domain.Country;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

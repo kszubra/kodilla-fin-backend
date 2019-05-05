@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.external.api;
+package com.kodilla.kodillafinalbackend.external.api.countries;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.kodilla.kodillafinalbackend.scheduler;
 
-import com.kodilla.kodillafinalbackend.external.api.RestcountriesFacade;
+import com.kodilla.kodillafinalbackend.external.api.countries.RestcountriesFacade;
 import com.kodilla.kodillafinalbackend.service.CountryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

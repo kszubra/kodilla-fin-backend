@@ -1,7 +1,7 @@
-package com.kodilla.kodillafinalbackend.external.api;
+package com.kodilla.kodillafinalbackend.external.api.countries;
 
-import com.kodilla.kodillafinalbackend.external.api.domain.Country;
-import com.kodilla.kodillafinalbackend.external.api.mapper.CountryMapper;
+import com.kodilla.kodillafinalbackend.external.api.countries.domain.Country;
+import com.kodilla.kodillafinalbackend.external.api.countries.mapper.CountryMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
