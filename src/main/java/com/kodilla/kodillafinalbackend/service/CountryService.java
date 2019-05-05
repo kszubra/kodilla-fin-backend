@@ -6,6 +6,7 @@ import com.kodilla.kodillafinalbackend.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -40,6 +41,7 @@ public class CountryService {
      * @param country country object to be added to the database
      * @return
      */
+    @Transactional
     public Country addCountry(final Country country) {
         if( this.exists(country) ) {
             return new Country();
@@ -66,12 +68,14 @@ public class CountryService {
      *
       * @param countries list of countries to update database with
      */
+    @Transactional
     public void updateDatabase(final List<Country> countries) {
         countries.stream()
                 .filter(this::notExists)
                 .forEach(this::addCountry);
     }
 
+    @Transactional
     public void deleteAllCountries() {
         countryRepository.deleteAll();
     }

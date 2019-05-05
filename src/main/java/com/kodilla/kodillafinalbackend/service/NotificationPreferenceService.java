@@ -5,15 +5,20 @@ import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.exceptions.NotificationPreferenceNotFoundException;
 import com.kodilla.kodillafinalbackend.repository.NotificationPreferenceRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class NotificationPreferenceService {
     private final NotificationPreferenceRepository notificationPreferenceRepository;
+    private final UserService userService;
 
     /**
      * Adds notification preference to the database and parent object's set of children objects.
@@ -47,17 +52,24 @@ public class NotificationPreferenceService {
     }
 
     /**
-     * Returns a list of preferences created by user provided as @param
+     * Returns a list of preferences created by user provided as @param If provided user does not exist, returns empty list.
+     * Prevents InvalidDataAccessApiUsageException when trying to use unsaved User object
      *
      * @param user
      * @return
      */
     public List<NotificationPreference> getAllPreferencesByUser(User user) {
-        return notificationPreferenceRepository.findAllByUser(user);
+        if( userService.exists(user) ) {
+            return notificationPreferenceRepository.findAllByUser(user);
+        }else {
+            log.error("Attempting to load preferences of unsaved User: returning empty list");
+            return new ArrayList<>();
+        }
     }
 
+    @Transactional
     public void deleteAllPreferences() {
-        notificationPreferenceRepository.deleteAll();
+        userService.getAllUsers().stream().forEach(User::removeAllPreferences);
     }
 
     /**
@@ -65,12 +77,31 @@ public class NotificationPreferenceService {
      *
      * @param user
      */
+    @Transactional
     public void deleteAllPreferencesByUser(User user) {
-        notificationPreferenceRepository.deleteAllByUser(user);
+        if( userService.exists(user) ) {
+            userService.getUserById( user.getId() ).removeAllPreferences();
+        }else {
+            log.error("Attempting to delete preferences of unsaved User");
+        }
     }
 
+    /**
+     * Due to the existing link with parent object, method removes preference with @param id by removing it from
+     * the parent object collection.
+     * If, by any chance, there is no relation with parent object, preference is removed with repository method.
+     *
+     * @param id
+     */
+    @Transactional
     public void deletePreferenceById(Long id) {
-        notificationPreferenceRepository.deleteById(id);
+        NotificationPreference preference = this.getPreferenceById(id);
+
+        if(Objects.nonNull( preference.getUser() )) {
+            preference.getUser().removePreference(preference);
+        } else {
+            notificationPreferenceRepository.deleteById(id);
+        }
     }
 
 }

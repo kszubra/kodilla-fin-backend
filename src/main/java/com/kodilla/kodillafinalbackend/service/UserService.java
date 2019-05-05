@@ -7,6 +7,7 @@ import com.kodilla.kodillafinalbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -31,7 +32,7 @@ public class UserService {
      * @param user which existence in database is checked by its id
      * @return
      */
-    private boolean exists(User user) {
+    public boolean exists(User user) {
         return existsByEmail( user.getEmail() );
     }
 
@@ -41,6 +42,7 @@ public class UserService {
      * @param user
      * @return
      */
+    @Transactional
     public User addUser(final User user) {
         if( this.exists(user) ) {
             throw new UserEmailAlreadyExistsException();
@@ -52,10 +54,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
 
+    @Transactional
     public void deleteUserById(final Long id) {
         userRepository.deleteById(id);
     }

@@ -53,6 +53,18 @@ public class User {
     )
     private Set<NotificationPreference> notificationPreferences;
 
+    public void addPreference(NotificationPreference preference) {
+        notificationPreferences.add(preference);
+    }
+
+    public void removePreference(NotificationPreference preference) {
+        notificationPreferences.remove(preference);
+    }
+
+    public void removeAllPreferences() {
+        notificationPreferences.clear();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
