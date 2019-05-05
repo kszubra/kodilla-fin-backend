@@ -1,6 +1,6 @@
 package com.kodilla.kodillafinalbackend.repository;
 
-import com.kodilla.kodillafinalbackend.external.api.restcountries.domain.Country;
+import com.kodilla.kodillafinalbackend.external.api.domain.Country;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

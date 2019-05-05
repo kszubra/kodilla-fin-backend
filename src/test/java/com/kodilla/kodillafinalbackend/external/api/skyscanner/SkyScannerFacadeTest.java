@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.skyscanner;
+package com.kodilla.kodillafinalbackend.external.api.skyscanner;
 
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Airport;

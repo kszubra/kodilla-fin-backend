@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.external.api.restcountries.domain;
+package com.kodilla.kodillafinalbackend.external.api.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

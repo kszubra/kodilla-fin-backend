@@ -1,6 +1,6 @@
-package com.kodilla.kodillafinalbackend.external.api.restcountries.mapper;
+package com.kodilla.kodillafinalbackend.external.api.mapper;
 
-import com.kodilla.kodillafinalbackend.external.api.restcountries.domain.Country;
+import com.kodilla.kodillafinalbackend.external.api.domain.Country;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.weather;
+package com.kodilla.kodillafinalbackend.external.api.weather;
 
 import com.kodilla.kodillafinalbackend.external.api.weather.WeatherClientFacade;
 import com.kodilla.kodillafinalbackend.external.api.weather.domain.WeatherForecast;

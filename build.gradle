@@ -55,5 +55,8 @@ dependencies {
 
     //TEST DATABASE
     testRuntime('com.h2database:h2')
+    
+    //THYMELEAF
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 }

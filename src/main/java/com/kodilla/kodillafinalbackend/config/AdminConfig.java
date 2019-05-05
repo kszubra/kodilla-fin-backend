@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class AdminConfig {
+    @Value("${spring.mail.username}")
+    private String applicationEmail;
+
     @Value("${weather.api.key}")
     private String weatherApiKey;
 
