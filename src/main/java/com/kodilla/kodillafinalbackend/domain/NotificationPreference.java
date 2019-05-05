@@ -30,7 +30,11 @@ public class NotificationPreference {
 
     @NotNull
     @Size(min = 2, message = "City name must be at least 2 characters long")
-    private String city;
+    private String departureCity;
+
+    @NotNull
+    @Size(min = 2, message = "City name must be at least 2 characters long")
+    private String destinationCity;
 
     @NotNull
     private Integer minTemperature;
@@ -45,7 +49,8 @@ public class NotificationPreference {
         NotificationPreference that = (NotificationPreference) o;
         return id.equals(that.id) &&
                 user.equals(that.user) &&
-                city.equals(that.city) &&
+                departureCity.equals(that.departureCity) &&
+                destinationCity.equals(that.destinationCity) &&
                 minTemperature.equals(that.minTemperature) &&
                 maxPrice.setScale(2, RoundingMode.HALF_EVEN)
                         .equals(that.maxPrice.setScale(2, RoundingMode.HALF_EVEN));
@@ -53,6 +58,6 @@ public class NotificationPreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, city, minTemperature, maxPrice);
+        return Objects.hash(id, user, departureCity, destinationCity, minTemperature, maxPrice);
     }
 }

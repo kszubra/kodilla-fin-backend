@@ -27,7 +27,7 @@ public interface NotificationPreferenceRepository extends CrudRepository<Notific
 
     void deleteAllByUser(User user);
 
-    List<NotificationPreference> findAllByCity(String city);
+    List<NotificationPreference> findAllByDestinationCity(String city);
 
     List<NotificationPreference> findAllByUser(User user);
 }

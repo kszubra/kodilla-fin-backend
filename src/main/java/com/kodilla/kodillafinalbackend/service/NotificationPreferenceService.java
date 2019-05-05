@@ -42,13 +42,13 @@ public class NotificationPreferenceService {
     }
 
     /**
-     * Returns a list of preferences with destination city chosen as city provided as method @param
+     * Returns a list of preferences with destination departureCity chosen as departureCity provided as method @param
      *
      * @param city
      * @return
      */
     public List<NotificationPreference> getAllPreferencesByCity(String city) {
-        return notificationPreferenceRepository.findAllByCity(city);
+        return notificationPreferenceRepository.findAllByDestinationCity(city);
     }
 
     /**

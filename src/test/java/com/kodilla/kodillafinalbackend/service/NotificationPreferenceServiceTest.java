@@ -3,7 +3,6 @@ package com.kodilla.kodillafinalbackend.service;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
 import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.exceptions.NotificationPreferenceNotFoundException;
-import com.kodilla.kodillafinalbackend.repository.NotificationPreferenceRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -47,7 +45,8 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUser);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
@@ -86,19 +85,22 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUserTwo);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUserTwo)
@@ -131,19 +133,22 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUser);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Berlin")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(700.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
@@ -153,7 +158,7 @@ public class NotificationPreferenceServiceTest {
         notificationPreferenceService.addPreference(testPreference);
         notificationPreferenceService.addPreference(testPreferenceTwo);
         notificationPreferenceService.addPreference(testPreferenceThree);
-        List<NotificationPreference> result = notificationPreferenceService.getAllPreferencesByCity("Berlin");
+        List<NotificationPreference> result = notificationPreferenceService.getAllPreferencesByCity("Paris");
 
         //Then
         assertEquals(2, result.size());
@@ -183,19 +188,22 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUserTwo);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(300.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
-                .city("Moscow")
+                .departureCity("Moscow")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(900.00))
                 .user(testUserTwo)
@@ -226,19 +234,22 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUser);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(300.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
-                .city("Moscow")
+                .departureCity("Moscow")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(900.00))
                 .user(testUser)
@@ -278,19 +289,22 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUserTwo);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(300.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
-                .city("Moscow")
+                .departureCity("Moscow")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(900.00))
                 .user(testUserTwo)
@@ -322,19 +336,22 @@ public class NotificationPreferenceServiceTest {
         userService.addUser(testUser);
 
         NotificationPreference testPreference = NotificationPreference.builder()
-                .city("Warsaw")
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(300.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
-                .city("Berlin")
+                .departureCity("Berlin")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(500.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
-                .city("Moscow")
+                .departureCity("Moscow")
+                .destinationCity("Paris")
                 .minTemperature(10)
                 .maxPrice(BigDecimal.valueOf(900.00))
                 .user(testUser)
