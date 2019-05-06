@@ -4,6 +4,7 @@ import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
 import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -34,13 +32,14 @@ public class WeekendFlightOffersCreatorTest {
     @Autowired
     private NotificationPreferenceService notificationPreferenceService;
 
-    @Before
+    @After
     public void cleanUp() {
         notificationPreferenceService.deleteAllPreferences();
         userService.deleteAllUsers();
     }
 
-    private void prepareDatabase() {
+    @Before
+    public void prepareDatabase() {
         User testUser = User.builder()
                 .name("John")
                 .surname("Rambo")
@@ -80,10 +79,8 @@ public class WeekendFlightOffersCreatorTest {
 
     @Test
     public void testGetAllSearchRequests() {
-        //Given
-        prepareDatabase();
-
         //When
+        Set<FlightSearchRequest> result = weekendFlightOffersCreator.getAllSearchRequests();
         /**
          * WARSAW AIRPORTS: WAW, WMI
          * HANOVER AIRPORTS: HAJ
@@ -107,10 +104,23 @@ public class WeekendFlightOffersCreatorTest {
          *      PROPER NUMBER OF SEARCH REQUESTS: 4 + 2 = 6
          *
          */
-        Set<FlightSearchRequest> result = weekendFlightOffersCreator.getAllSearchRequests();
 
         //Then
         assertEquals(6, result.size());
         result.forEach(System.out::println);
     }
+
+    @Test
+    public void testGettingForecastForDestinationCities() {
+        //When
+        Map<String, Double> result = weekendFlightOffersCreator.getWeatherForDestinationCities();
+
+        //Then
+        assertTrue( result.containsKey("hanover") );
+        assertTrue( result.containsKey("gdańsk") );
+        for(Map.Entry<String, Double> entry : result.entrySet()) {
+            System.out.println("City: " + entry.getKey().toUpperCase() + ", expected average temperate during next weekend: " + entry.getValue());
+        }
+    }
+
 }

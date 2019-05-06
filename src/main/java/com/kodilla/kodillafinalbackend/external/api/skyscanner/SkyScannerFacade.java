@@ -20,8 +20,8 @@ public class SkyScannerFacade {
 
     /***
      * API may respond with flights having different departure date than provided in request. Before passing the response
-     * method filteres out records with invalid departure date. This operation cannot be performed in mapper because
-     * response from the API does not contain date provided in request and is unavailable in the DTO object.
+     * method filteres out records with invalid departure date and not direct flights. This operation cannot be performed
+     * in mapper because response from the API does not contain date provided in request and is unavailable in the DTO object.
      *
      * @param originAirportCode
      * @param destinationAirportCode
@@ -33,6 +33,7 @@ public class SkyScannerFacade {
                 .mapToFlightConnectionsResult( skyScannerClient.getFlightConnections(originAirportCode, destinationAirportCode, date) )
                 .getConnections().stream()
                     .filter(e -> e.getDepartureDate().equals(date))
+                    .filter(Flight::isDirect)
                     .collect(Collectors.toList());
     }
 

@@ -2,10 +2,11 @@ package com.kodilla.kodillafinalbackend.service;
 
 import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.domain.WeekendFlightOffer;
+import com.kodilla.kodillafinalbackend.exceptions.UnableToGetWeatherForecastException;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Airport;
 import com.kodilla.kodillafinalbackend.external.api.weather.WeatherClientFacade;
+import com.kodilla.kodillafinalbackend.external.api.weather.domain.DailyWeatherForecast;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,9 @@ public class WeekendFlightOffersCreator {
      * @param allPreferences a list of customers' preferences to work on
      * @return
      */
-    private Set<String> getCitiesFromPreferences(List<NotificationPreference> allPreferences) {
+    private Set<String> getAllCitiesFromPreferences(List<NotificationPreference> allPreferences) {
         Set<String> cities = new HashSet<>();
-        allPreferences.stream().forEach(e -> {
+        allPreferences.forEach(e -> {
                         cities.add( e.getDepartureCity().toLowerCase() );
                         cities.add( e.getDestinationCity().toLowerCase() );
         });
@@ -51,7 +52,7 @@ public class WeekendFlightOffersCreator {
      */
     private Map<String, List<Airport>> getAvailableAirportsForPrefferedCities(Set<String> cities) {
         Map<String, List<Airport>> citiesAndAirports = new HashMap<>();
-        cities.stream().forEach(
+        cities.forEach(
                 e -> citiesAndAirports.put(e, skyScannerFacade.getAirportsInCity(e))
         );
         return citiesAndAirports;
@@ -108,15 +109,65 @@ public class WeekendFlightOffersCreator {
         Set<FlightSearchRequest> uniqueSearchRequestsForPreferenfces = new HashSet<>();
 
         List<NotificationPreference> allPreferences = notificationPreferenceService.getAllPreferences();
-        Set<String> cities = getCitiesFromPreferences(allPreferences);
+        Set<String> cities = getAllCitiesFromPreferences(allPreferences);
         Map<String, List<Airport>> citiesAndAirports = getAvailableAirportsForPrefferedCities(cities);
 
-        allPreferences.stream().forEach(e -> {
+        allPreferences.forEach(e -> {
             uniqueSearchRequestsForPreferenfces.addAll( getSearchRequestsForPreference(e, citiesAndAirports) );
         });
 
         return uniqueSearchRequestsForPreferenfces;
     }
+
+    /**
+     * Method creates a set of destination cities appearing in customers' preferences. To ensure equality of strings and
+     * avoid duplicating cities, every city name gets changed to lower case
+     *
+     * @return
+     */
+    private Set<String> getDestinationCitiesFromPreferences() {
+        HashSet<String> destinationCities = new HashSet<>();
+        notificationPreferenceService.getAllPreferences().forEach(
+                e -> destinationCities.add( e.getDestinationCity().toLowerCase() )
+        );
+
+        return destinationCities;
+    }
+
+    /**
+     * Tells whether privided as @param LocalDate belongs to the uproming weekend, meaning:
+     * from departure day ("after day before") to sunday
+     *
+     * @param date
+     * @return
+     */
+    private boolean isNextWeekendDay(LocalDate date) {
+        return (date.isAfter(getNextFriday().minusDays(1)) && date.isBefore(getSundayAfterDeparture().plusDays(1)));
+    }
+
+    private Double getWeekendAverageTemperature(String city) {
+        return weatherClientFacade.getWeatherForecast(city).getDailyForecasts().stream()
+                .filter(e -> isNextWeekendDay( e.getDate() ))
+                .mapToDouble(DailyWeatherForecast::getExpectedTemperature )
+                .average().orElseThrow(UnableToGetWeatherForecastException::new);
+    }
+
+    /**
+     * Counts average temperature for destination cities during upcoming weekend. Returns it as a Map where Key is
+     * city name and value is the expected average temperature
+     *
+     * @return
+     */
+    public Map<String, Double> getWeatherForDestinationCities() {
+        Map<String, Double> averageTemperaturesForDestinationCities = new HashMap<>();
+        getDestinationCitiesFromPreferences().forEach(
+                e -> averageTemperaturesForDestinationCities.put(e, getWeekendAverageTemperature(e))
+        );
+
+        return averageTemperaturesForDestinationCities;
+    }
+
+
 
 
 
