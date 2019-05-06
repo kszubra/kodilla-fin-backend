@@ -17,7 +17,7 @@ public class UpdateCountryDatabaseScheduler {
     /**
      * Every 24 hours updates country database
      */
-    @Scheduled(fixedDelay = 86400000)
+    //@Scheduled(fixedDelay = 86400000)
     public void updateCountries() {
         log.info("Updating country database");
         countryService.updateDatabase( restcountriesFacade.getCountries() );

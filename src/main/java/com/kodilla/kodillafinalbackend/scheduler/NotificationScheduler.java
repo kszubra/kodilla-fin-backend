@@ -21,7 +21,7 @@ public class NotificationScheduler {
     /**
      * Every 24 hours updates country database
      */
-    @Scheduled(fixedDelay = 86400000)
+    //@Scheduled(fixedDelay = 86400000)
     public void notifyAboutOffers(){
         //TODO: preparing data
 

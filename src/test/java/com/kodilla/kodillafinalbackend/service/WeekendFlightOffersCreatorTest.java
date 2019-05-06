@@ -40,10 +40,11 @@ public class WeekendFlightOffersCreatorTest {
 
     @Before
     public void prepareDatabase() {
+        Random rng = new Random();
         User testUser = User.builder()
                 .name("John")
                 .surname("Rambo")
-                .email("rambo@rambo.com")
+                .email("rambo" + rng.nextInt(10) + "@rambo.com")
                 .registered(LocalDate.now())
                 .securePassword("123456789")
                 .notificationPreferences(new HashSet<>())
@@ -74,7 +75,6 @@ public class WeekendFlightOffersCreatorTest {
         notificationPreferenceService.addPreference(testPreference);
         notificationPreferenceService.addPreference(testPreferenceTwo);
         notificationPreferenceService.addPreference(testPreferenceThree);
-
     }
 
     @Test
