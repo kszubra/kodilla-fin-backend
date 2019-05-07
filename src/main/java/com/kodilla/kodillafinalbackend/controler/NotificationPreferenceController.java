@@ -55,7 +55,7 @@ public class NotificationPreferenceController {
     }
 
     @GetMapping("preferences/{id}")
-    public NotificationPreferenceDto getPreferences(@PathVariable("id") Long id) {
+    public NotificationPreferenceDto getPreference(@PathVariable("id") Long id) {
         return preferenceMapper.mapToPreferenceDto( preferenceService.getPreferenceById(id) );
     }
 
