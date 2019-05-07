@@ -1,7 +1,6 @@
 package com.kodilla.kodillafinalbackend.domain;
 
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -33,7 +32,7 @@ public class User {
 
     @NotNull
     @Pattern(regexp = ".{3,}@.{2,}\\..{2,3}", message = "email format is not proper")
-    @Column(unique = true)
+    @Column(unique=true)
     private String email;
 
     @NotNull

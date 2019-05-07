@@ -40,7 +40,7 @@ public class CoreConfiguration implements WebMvcConfigurer {
     @Bean
     public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
     webServerFactoryCustomizer() {
-        return factory -> factory.setContextPath("/library"); //TODO: change for new directory when ready
+        return factory -> factory.setContextPath("/weekendflights");
     }
 
     @Bean
