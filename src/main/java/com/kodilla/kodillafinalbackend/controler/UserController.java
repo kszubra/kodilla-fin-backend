@@ -47,5 +47,11 @@ public class UserController {
         return userMapper.mapToDto(user);
     }
 
+    @DeleteMapping("users/{id}")
+    @Transactional
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUserById(id);
+    }
+
 
 }
