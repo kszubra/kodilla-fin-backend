@@ -1,5 +1,6 @@
 package com.kodilla.kodillafinalbackend.service;
 
+import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
 import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.exceptions.UserEmailAlreadyExistsException;
 import com.kodilla.kodillafinalbackend.exceptions.UserNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.TransactionSystemException;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +25,8 @@ import static org.junit.Assert.*;
 public class UserServiceTest {
     @Autowired
     private UserService userService;
+    @Autowired
+    private NotificationPreferenceService notificationPreferenceService;
 
     @Before
     public void cleanUp() {
@@ -247,6 +251,63 @@ public class UserServiceTest {
         assertEquals(1, result.size());
         assertTrue( result.contains(testUserOne) );
         assertFalse( result.contains(testUserTwo) );
+    }
+
+    @Test
+    public void testDeleteUserWhenItHasPreferences() {
+        //Given
+        User testUser = User.builder()
+                .name("John")
+                .surname("Rambo")
+                .email("rambo@rambo.com")
+                .registered(LocalDate.now())
+                .securePassword("123456789")
+                .notificationPreferences(new HashSet<>())
+                .build();
+        User testUserTwo = User.builder()
+                .name("John")
+                .surname("Rambo")
+                .email("rambo@rambo32.com")
+                .registered(LocalDate.now())
+                .securePassword("123456789")
+                .notificationPreferences(new HashSet<>())
+                .build();
+        userService.addUser(testUser);
+        userService.addUser(testUserTwo);
+
+        NotificationPreference testPreference = NotificationPreference.builder()
+                .departureCity("Warsaw")
+                .destinationCity("Paris")
+                .minTemperature(10)
+                .maxPrice(BigDecimal.valueOf(300.00))
+                .user(testUser)
+                .build();
+        NotificationPreference testPreferenceTwo = NotificationPreference.builder()
+                .departureCity("Berlin")
+                .destinationCity("Paris")
+                .minTemperature(10)
+                .maxPrice(BigDecimal.valueOf(500.00))
+                .user(testUser)
+                .build();
+        NotificationPreference testPreferenceThree = NotificationPreference.builder()
+                .departureCity("Moscow")
+                .destinationCity("Paris")
+                .minTemperature(10)
+                .maxPrice(BigDecimal.valueOf(900.00))
+                .user(testUserTwo)
+                .build();
+        notificationPreferenceService.addPreference(testPreference);
+        notificationPreferenceService.addPreference(testPreferenceTwo);
+        notificationPreferenceService.addPreference(testPreferenceThree);
+
+        //When
+        userService.deleteUserById(testUser.getId());
+        int userNumber = userService.getAllUsers().size();
+        int preferenceNumber = notificationPreferenceService.getAllPreferences().size();
+
+        //Then
+        assertEquals(1, userNumber);
+        assertEquals(1, preferenceNumber);
     }
 
     @Test
