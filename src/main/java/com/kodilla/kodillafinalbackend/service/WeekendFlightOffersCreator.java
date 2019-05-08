@@ -2,6 +2,7 @@ package com.kodilla.kodillafinalbackend.service;
 
 import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
+import com.kodilla.kodillafinalbackend.domain.WeekendFlightOffer;
 import com.kodilla.kodillafinalbackend.exceptions.UnableToGetWeatherForecastException;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Airport;
@@ -14,6 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,6 +28,8 @@ public class WeekendFlightOffersCreator {
         return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
     }
     private LocalDate getSundayAfterDeparture() { return getNextFriday().plusDays(2); }
+
+
 
     /**
      * Method creates a set of all cities appearing in customers' preferences. To ensure equality of strings and
@@ -50,12 +54,30 @@ public class WeekendFlightOffersCreator {
      * @param cities
      * @return
      */
-    private Map<String, List<Airport>> getAvailableAirportsForPrefferedCities(Set<String> cities) {
+    private Map<String, List<Airport>> getAvailableAirportsForPreferredCities(Set<String> cities) {
         Map<String, List<Airport>> citiesAndAirports = new HashMap<>();
         cities.forEach(
                 e -> citiesAndAirports.put(e, skyScannerFacade.getAirportsInCity(e))
         );
         return citiesAndAirports;
+    }
+
+    /**
+     * Creates a reversed map where Key value is airport code and value is the name of there city where airport is.
+     *
+     * @param citiesAndAirports
+     * @return
+     */
+    private Map<String, String> createReverseMappingForCitiesAndAirports(Map<String, List<Airport>> citiesAndAirports) {
+        Map<String, String> result = new HashMap<>();
+        citiesAndAirports.entrySet().stream()
+                .forEach(entry -> {
+                        for(Airport airport : entry.getValue()) {
+                            result.put(airport.getAirportCode(), entry.getKey());
+                        }
+                });
+
+        return result;
     }
 
     /**
@@ -70,6 +92,7 @@ public class WeekendFlightOffersCreator {
         Set<FlightSearchRequest> requestsForPreference = new HashSet<>();
         List<Airport> departureAirports = citiesAndAirports.get( preference.getDepartureCity().toLowerCase() );
         List<Airport> destinationAirports = citiesAndAirports.get( preference.getDestinationCity().toLowerCase() );
+        Map<String, String> reversedCitiesAndAirports = createReverseMappingForCitiesAndAirports(citiesAndAirports);
 
         /**
          * For every available in the city airport create a pair with every destination airport to create search request.
@@ -83,7 +106,9 @@ public class WeekendFlightOffersCreator {
                  */
                 requestsForPreference.add(
                         FlightSearchRequest.builder()
+                                .departureCity( reversedCitiesAndAirports.get( departure.getAirportCode() ) )
                                 .departureAirport( departure.getAirportCode() )
+                                .destinationCity( reversedCitiesAndAirports.get( destination.getAirportCode() ) )
                                 .destinationAirport( destination.getAirportCode() )
                                 .departureDay( getNextFriday() )
                                 .build()
@@ -94,7 +119,9 @@ public class WeekendFlightOffersCreator {
                  */
                 requestsForPreference.add(
                         FlightSearchRequest.builder()
+                                .departureCity( reversedCitiesAndAirports.get( destination.getAirportCode() )  )
                                 .departureAirport( destination.getAirportCode() )
+                                .destinationCity( reversedCitiesAndAirports.get( departure.getAirportCode() ) )
                                 .destinationAirport( departure.getAirportCode() )
                                 .departureDay( getSundayAfterDeparture() )
                                 .build()
@@ -110,7 +137,7 @@ public class WeekendFlightOffersCreator {
 
         List<NotificationPreference> allPreferences = notificationPreferenceService.getAllPreferences();
         Set<String> cities = getAllCitiesFromPreferences(allPreferences);
-        Map<String, List<Airport>> citiesAndAirports = getAvailableAirportsForPrefferedCities(cities);
+        Map<String, List<Airport>> citiesAndAirports = getAvailableAirportsForPreferredCities(cities);
 
         allPreferences.forEach(e -> {
             uniqueSearchRequestsForPreferenfces.addAll( getSearchRequestsForPreference(e, citiesAndAirports) );
@@ -135,7 +162,7 @@ public class WeekendFlightOffersCreator {
     }
 
     /**
-     * Tells whether privided as @param LocalDate belongs to the uproming weekend, meaning:
+     * Tells whether provided as @param LocalDate belongs to the upcoming weekend, meaning:
      * from departure day ("after day before") to sunday
      *
      * @param date
@@ -148,7 +175,7 @@ public class WeekendFlightOffersCreator {
     private Double getWeekendAverageTemperature(String city) {
         return weatherClientFacade.getWeatherForecast(city).getDailyForecasts().stream()
                 .filter(e -> isNextWeekendDay( e.getDate() ))
-                .mapToDouble(DailyWeatherForecast::getExpectedTemperature )
+                .mapToDouble(DailyWeatherForecast::getMaxTemperature )
                 .average().orElseThrow(UnableToGetWeatherForecastException::new);
     }
 
@@ -167,26 +194,14 @@ public class WeekendFlightOffersCreator {
         return averageTemperaturesForDestinationCities;
     }
 
-
-
-
-
-
-
     public void getOfferForPreference(NotificationPreference preference) {
-        List<Airport> departureAirports = skyScannerFacade.getAirportsInCity( preference.getDepartureCity() );
-        List<Airport> destinationAirports = skyScannerFacade.getAirportsInCity( preference.getDestinationCity() );
+        WeekendFlightOffer offer =  new WeekendFlightOffer();
+        String goingThereDestinationCity = preference.getDestinationCity();
+        String homeCity = preference.getDepartureCity();
 
         //TODO: po chuj zbierać requesty searchy jeśli można od razu robić requesty????? Dać Tu od razu zbiory wyników
         Set<FlightSearchRequest> flightSearchRequestsThere = new HashSet<>();
         Set<FlightSearchRequest> flightSearchRequestsReturn = new HashSet<>();
-
-
-
-
-
-
-
 
     }
 
