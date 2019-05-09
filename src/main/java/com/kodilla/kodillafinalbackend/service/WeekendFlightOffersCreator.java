@@ -3,6 +3,7 @@ package com.kodilla.kodillafinalbackend.service;
 import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
 import com.kodilla.kodillafinalbackend.domain.FlightConnectionOfferWithWeather;
+import com.kodilla.kodillafinalbackend.domain.TripOffer;
 import com.kodilla.kodillafinalbackend.exceptions.UnableToGetWeatherForecastException;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Airport;
@@ -19,6 +20,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -201,7 +203,7 @@ public class WeekendFlightOffersCreator {
         for(FlightSearchRequest request : requests) {
             log.info("Processing request: " + request);
             List<Flight> searchResult = this.getConnectionsForRequest(request);
-            log.info("Found " + searchResult.size() + " flights for the request");
+            log.info("Found " + searchResult.size() + " flight(s) for the request");
 
             result.addAll( this.getConnectionsForRequest(request) );
             log.info("Total result size: " + result.size());
@@ -226,25 +228,51 @@ public class WeekendFlightOffersCreator {
         return result;
     }
 
+    /**
+     * "Ultimate" method of the class, returning a complete set of connections matching preference requirements.
+     *
+     * @return
+     */
+    public Map<NotificationPreference, TripOffer> getPreferencesAndOffers() {
+        log.info("Matching preferences with avaiable connections...");
+        Map<NotificationPreference, TripOffer> preferencesAndOffers = new HashMap<>();
+        List<NotificationPreference> preferences = notificationPreferenceService.getAllPreferences();
+        List<FlightConnectionOfferWithWeather> offers = getAllFlightOffersWithExpectedWeather();
 
+        for(NotificationPreference preference : preferences) {
+            log.info("Processing preference: " + preference);
+            Optional<FlightConnectionOfferWithWeather> cheapestThereFlight = offers.stream()
+                    .filter(offer -> offer.getFlight().getDestinationCity().equals( preference.getDestinationCity().toLowerCase() )  )
+                    .filter(offer -> offer.getFlight().getDepartureCity().equals( preference.getDepartureCity().toLowerCase() ))
+                    .filter(offer -> offer.getExpectedTemperature().intValue() >= preference.getMinTemperature() )
+                    .min( FlightConnectionOfferWithWeather::compareTo );
 
+            log.info("Chepest there connection is: " + cheapestThereFlight);
 
+            Optional<FlightConnectionOfferWithWeather> cheapestReturnFlight = offers.stream()
+                    .filter(offer -> offer.getFlight().getDestinationCity().equals( preference.getDepartureCity().toLowerCase() )  )
+                    .filter(offer -> offer.getFlight().getDepartureCity().equals( preference.getDestinationCity().toLowerCase() ))
+                    .min( FlightConnectionOfferWithWeather::compareTo );
+            log.info("Chepest return connection is: " + cheapestReturnFlight);
 
+            if( cheapestReturnFlight.isPresent() && cheapestThereFlight.isPresent() ) {
+                FlightConnectionOfferWithWeather thereFlight = cheapestThereFlight.get();
+                FlightConnectionOfferWithWeather returnFlight = cheapestReturnFlight.get();
+                BigDecimal totalPrice = thereFlight.getFlight().getMinPrice().add(returnFlight.getFlight().getMinPrice());
 
+                /**
+                 * If total cost of both flights (there and return) is lower or equal to max price declared in preference
+                 * then create offer of those flights and add to the offer map
+                 */
+                if( totalPrice.compareTo( preference.getMaxPrice() ) < 1 ) {
+                    log.info("Total price is acceptable, adding to offers");
+                    TripOffer offer = new TripOffer(thereFlight, returnFlight, totalPrice);
+                    preferencesAndOffers.put(preference, offer);
+                }
+            }
+        }
 
-
-
-    public void getOfferForPreference(NotificationPreference preference) {
-
-
-        FlightConnectionOfferWithWeather offer =  new FlightConnectionOfferWithWeather();
-        String goingThereDestinationCity = preference.getDestinationCity();
-        String homeCity = preference.getDepartureCity();
-
-        //TODO: po chuj zbierać requesty searchy jeśli można od razu robić requesty????? Dać Tu od razu zbiory wyników
-        Set<FlightSearchRequest> flightSearchRequestsThere = new HashSet<>();
-        Set<FlightSearchRequest> flightSearchRequestsReturn = new HashSet<>();
-
+        return preferencesAndOffers;
     }
 
 }

@@ -1,9 +1,6 @@
 package com.kodilla.kodillafinalbackend.service;
 
-import com.kodilla.kodillafinalbackend.domain.FlightConnectionOfferWithWeather;
-import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
-import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.domain.User;
+import com.kodilla.kodillafinalbackend.domain.*;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Flight;
 import org.junit.After;
@@ -57,22 +54,22 @@ public class FlightConnectionOffersCreatorTestWithWeather {
         NotificationPreference testPreference = NotificationPreference.builder()
                 .departureCity("Warsaw")
                 .destinationCity("Hanover")
-                .minTemperature(10)
-                .maxPrice(BigDecimal.valueOf(500.00))
+                .minTemperature(1)
+                .maxPrice(BigDecimal.valueOf(5000.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceTwo = NotificationPreference.builder()
                 .departureCity("Warsaw")
                 .destinationCity("Hanover")
-                .minTemperature(10)
-                .maxPrice(BigDecimal.valueOf(700.00))
+                .minTemperature(1)
+                .maxPrice(BigDecimal.valueOf(5000.00))
                 .user(testUser)
                 .build();
         NotificationPreference testPreferenceThree = NotificationPreference.builder()
                 .departureCity("Wrocław")
                 .destinationCity("Gdańsk")
-                .minTemperature(10)
-                .maxPrice(BigDecimal.valueOf(500.00))
+                .minTemperature(1)
+                .maxPrice(BigDecimal.valueOf(5000.00))
                 .user(testUser)
                 .build();
         notificationPreferenceService.addPreference(testPreference);
@@ -132,6 +129,7 @@ public class FlightConnectionOffersCreatorTestWithWeather {
         List<Flight> flights = weekendFlightOffersCreator.getConnectionsForAllPreferences();
 
         //Then
+        assertTrue( flights.size() > 0 );
         for(Flight flight : flights) {
             System.out.println("Flight: " + flight);
         }
@@ -143,7 +141,17 @@ public class FlightConnectionOffersCreatorTestWithWeather {
         List<FlightConnectionOfferWithWeather> offers = weekendFlightOffersCreator.getAllFlightOffersWithExpectedWeather();
 
         //Then
+        assertTrue( offers.size() > 0 );
         offers.forEach(System.out::println);
+    }
+
+    @Test
+    public void testGetPreferencesAndOffers() {
+        //Given and When
+        Map<NotificationPreference, TripOffer > result = weekendFlightOffersCreator.getPreferencesAndOffers();
+
+        //Then
+        assertTrue( result.entrySet().size() > 0 );
     }
 
 }

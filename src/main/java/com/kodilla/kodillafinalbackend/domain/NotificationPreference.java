@@ -43,6 +43,17 @@ public class NotificationPreference {
     private BigDecimal maxPrice;
 
     @Override
+    public String toString() {
+        return "NotificationPreference{" +
+                "id=" + id +
+                ", departureCity='" + departureCity + '\'' +
+                ", destinationCity='" + destinationCity + '\'' +
+                ", minTemperature=" + minTemperature +
+                ", maxPrice=" + maxPrice +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
