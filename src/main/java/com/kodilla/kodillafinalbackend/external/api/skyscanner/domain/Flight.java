@@ -1,9 +1,6 @@
 package com.kodilla.kodillafinalbackend.external.api.skyscanner.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,8 +9,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder(toBuilder = true)
 public class Flight {
+    private String departureCity;
+    private String destinationCity;
+    private String departureAirport;
+    private String destinationAirport;
     private BigDecimal minPrice;
     private boolean direct;
     private List<String> carriers;
@@ -22,7 +24,11 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight{" +
-                "minPrice=" + minPrice +
+                "departureCity='" + departureCity + '\'' +
+                ", destinationCity='" + destinationCity + '\'' +
+                ", departureAirport='" + departureAirport + '\'' +
+                ", destinationAirport='" + destinationAirport + '\'' +
+                ", minPrice=" + minPrice +
                 ", direct=" + direct +
                 ", carriers=" + carriers +
                 ", departureDate=" + departureDate +

@@ -2,21 +2,25 @@ package com.kodilla.kodillafinalbackend.service;
 
 import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.domain.WeekendFlightOffer;
+import com.kodilla.kodillafinalbackend.domain.FlightConnectionOfferWithWeather;
 import com.kodilla.kodillafinalbackend.exceptions.UnableToGetWeatherForecastException;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Airport;
+import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Flight;
 import com.kodilla.kodillafinalbackend.external.api.weather.WeatherClientFacade;
 import com.kodilla.kodillafinalbackend.external.api.weather.domain.DailyWeatherForecast;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class WeekendFlightOffersCreator {
@@ -28,8 +32,6 @@ public class WeekendFlightOffersCreator {
         return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
     }
     private LocalDate getSundayAfterDeparture() { return getNextFriday().plusDays(2); }
-
-
 
     /**
      * Method creates a set of all cities appearing in customers' preferences. To ensure equality of strings and
@@ -147,21 +149,6 @@ public class WeekendFlightOffersCreator {
     }
 
     /**
-     * Method creates a set of destination cities appearing in customers' preferences. To ensure equality of strings and
-     * avoid duplicating cities, every city name gets changed to lower case
-     *
-     * @return
-     */
-    private Set<String> getDestinationCitiesFromPreferences() {
-        HashSet<String> destinationCities = new HashSet<>();
-        notificationPreferenceService.getAllPreferences().forEach(
-                e -> destinationCities.add( e.getDestinationCity().toLowerCase() )
-        );
-
-        return destinationCities;
-    }
-
-    /**
      * Tells whether provided as @param LocalDate belongs to the upcoming weekend, meaning:
      * from departure day ("after day before") to sunday
      *
@@ -187,15 +174,70 @@ public class WeekendFlightOffersCreator {
      */
     public Map<String, Double> getWeatherForDestinationCities() {
         Map<String, Double> averageTemperaturesForDestinationCities = new HashMap<>();
-        getDestinationCitiesFromPreferences().forEach(
+        getAllCitiesFromPreferences( notificationPreferenceService.getAllPreferences() ).forEach(
                 e -> averageTemperaturesForDestinationCities.put(e, getWeekendAverageTemperature(e))
         );
 
         return averageTemperaturesForDestinationCities;
     }
 
+    private List<Flight> getConnectionsForRequest(FlightSearchRequest request) {
+        List<Flight> result = skyScannerFacade.getFlightConnections(request.getDepartureAirport(), request.getDestinationAirport(), request.getDepartureDay());
+        for(Flight flight : result) {
+            flight.setDepartureCity( request.getDepartureCity() );
+            flight.setDestinationCity( request.getDestinationCity() );
+            flight.setDepartureAirport( request.getDepartureAirport() );
+            flight.setDestinationAirport( request.getDestinationAirport() );
+        }
+
+        return result;
+    }
+
+    public List<Flight> getConnectionsForAllPreferences() {
+        List<Flight> result = new ArrayList<>();
+        Set<FlightSearchRequest> requests = this.getAllSearchRequests();
+        log.info("Flight search requests number: " + requests.size());
+
+        for(FlightSearchRequest request : requests) {
+            log.info("Processing request: " + request);
+            List<Flight> searchResult = this.getConnectionsForRequest(request);
+            log.info("Found " + searchResult.size() + " flights for the request");
+
+            result.addAll( this.getConnectionsForRequest(request) );
+            log.info("Total result size: " + result.size());
+        }
+
+        return result;
+    }
+
+    public List<FlightConnectionOfferWithWeather> getAllFlightOffersWithExpectedWeather() {
+        List<FlightConnectionOfferWithWeather> result = new ArrayList<>();
+
+        List<Flight> flights = this.getConnectionsForAllPreferences();
+        Map<String, Double> weather = this.getWeatherForDestinationCities();
+
+        for(Flight flight : flights) {
+            BigDecimal temperature =  BigDecimal.valueOf(weather.get(flight.getDestinationCity())).setScale(2, RoundingMode.HALF_EVEN);
+            result.add(
+                    new FlightConnectionOfferWithWeather(flight,  temperature)
+            );
+        }
+
+        return result;
+    }
+
+
+
+
+
+
+
+
+
     public void getOfferForPreference(NotificationPreference preference) {
-        WeekendFlightOffer offer =  new WeekendFlightOffer();
+
+
+        FlightConnectionOfferWithWeather offer =  new FlightConnectionOfferWithWeather();
         String goingThereDestinationCity = preference.getDestinationCity();
         String homeCity = preference.getDepartureCity();
 

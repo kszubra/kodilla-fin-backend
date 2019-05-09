@@ -1,9 +1,11 @@
 package com.kodilla.kodillafinalbackend.service;
 
+import com.kodilla.kodillafinalbackend.domain.FlightConnectionOfferWithWeather;
 import com.kodilla.kodillafinalbackend.domain.FlightSearchRequest;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
 import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.external.api.skyscanner.SkyScannerFacade;
+import com.kodilla.kodillafinalbackend.external.api.skyscanner.domain.Flight;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -24,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WeekendFlightOffersCreatorTest {
+public class FlightConnectionOffersCreatorTestWithWeather {
     @Autowired
     private WeekendFlightOffersCreator weekendFlightOffersCreator;
     @Autowired
@@ -121,6 +124,26 @@ public class WeekendFlightOffersCreatorTest {
         for(Map.Entry<String, Double> entry : result.entrySet()) {
             System.out.println("City: " + entry.getKey().toUpperCase() + ", expected average temperate during next weekend: " + entry.getValue());
         }
+    }
+
+    @Test
+    public void testGettingFlightsForAllPreferences() {
+        //When
+        List<Flight> flights = weekendFlightOffersCreator.getConnectionsForAllPreferences();
+
+        //Then
+        for(Flight flight : flights) {
+            System.out.println("Flight: " + flight);
+        }
+    }
+
+    @Test
+    public void testGettingConnectionOfferWithWeather() {
+        //When
+        List<FlightConnectionOfferWithWeather> offers = weekendFlightOffersCreator.getAllFlightOffersWithExpectedWeather();
+
+        //Then
+        offers.forEach(System.out::println);
     }
 
 }

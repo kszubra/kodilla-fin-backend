@@ -33,7 +33,7 @@ public class SkyScannerFacade {
                 .mapToFlightConnectionsResult( skyScannerClient.getFlightConnections(originAirportCode, destinationAirportCode, date) )
                 .getConnections().stream()
                     .filter(e -> e.getDepartureDate().equals(date))
-                    .filter(Flight::isDirect)
+                    //.filter(Flight::isDirect)
                     .collect(Collectors.toList());
     }
 
