@@ -1,4 +1,4 @@
-package com.kodilla.kodillafinalbackend.domain;
+package com.kodilla.kodillafinalbackend.domain.dto;
 
 import lombok.*;
 
@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class NotificationPreferenceCreationDto {
+public class NotificationPreferenceDto {
     private Long id;
-    private Long userId;
+    private UserDto userDto;
     private String departureCity;
     private String destinationCity;
     private Integer minTemperature;

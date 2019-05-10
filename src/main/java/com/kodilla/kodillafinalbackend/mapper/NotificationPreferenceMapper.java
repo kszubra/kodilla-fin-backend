@@ -1,8 +1,8 @@
 package com.kodilla.kodillafinalbackend.mapper;
 
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.domain.NotificationPreferenceCreationDto;
-import com.kodilla.kodillafinalbackend.domain.NotificationPreferenceDto;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceCreationDto;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceDto;
 import com.kodilla.kodillafinalbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

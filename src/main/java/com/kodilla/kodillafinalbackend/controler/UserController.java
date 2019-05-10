@@ -1,8 +1,8 @@
 package com.kodilla.kodillafinalbackend.controler;
 
 import com.kodilla.kodillafinalbackend.domain.User;
-import com.kodilla.kodillafinalbackend.domain.UserDto;
-import com.kodilla.kodillafinalbackend.domain.UserRegistrationDto;
+import com.kodilla.kodillafinalbackend.domain.dto.UserDto;
+import com.kodilla.kodillafinalbackend.domain.dto.UserRegistrationDto;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
 import com.kodilla.kodillafinalbackend.service.UserService;
 import lombok.AllArgsConstructor;

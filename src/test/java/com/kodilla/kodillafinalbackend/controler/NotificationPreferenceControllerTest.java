@@ -2,6 +2,9 @@ package com.kodilla.kodillafinalbackend.controler;
 
 import com.google.gson.Gson;
 import com.kodilla.kodillafinalbackend.domain.*;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceCreationDto;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceDto;
+import com.kodilla.kodillafinalbackend.domain.dto.UserDto;
 import com.kodilla.kodillafinalbackend.mapper.NotificationPreferenceMapper;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
 import com.kodilla.kodillafinalbackend.service.NotificationPreferenceService;

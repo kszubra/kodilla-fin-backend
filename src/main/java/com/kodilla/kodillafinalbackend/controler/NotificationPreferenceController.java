@@ -1,8 +1,8 @@
 package com.kodilla.kodillafinalbackend.controler;
 
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.domain.NotificationPreferenceCreationDto;
-import com.kodilla.kodillafinalbackend.domain.NotificationPreferenceDto;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceCreationDto;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceDto;
 import com.kodilla.kodillafinalbackend.mapper.NotificationPreferenceMapper;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
 import com.kodilla.kodillafinalbackend.service.NotificationPreferenceService;
