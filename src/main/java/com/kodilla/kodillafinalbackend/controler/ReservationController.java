@@ -1,9 +1,11 @@
 package com.kodilla.kodillafinalbackend.controler;
 
+import com.kodilla.kodillafinalbackend.domain.Payment;
 import com.kodilla.kodillafinalbackend.domain.Reservation;
 import com.kodilla.kodillafinalbackend.domain.dto.ReservationCreationDto;
 import com.kodilla.kodillafinalbackend.domain.dto.ReservationDto;
 import com.kodilla.kodillafinalbackend.mapper.ReservationMapper;
+import com.kodilla.kodillafinalbackend.service.PaymentService;
 import com.kodilla.kodillafinalbackend.service.ReservationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import java.util.List;
 public class ReservationController {
     private final ReservationService reservationService;
     private final ReservationMapper reservationMapper;
+    private final PaymentService paymentService;
 
     @PostMapping("reservations")
     public void addReservation(@RequestBody ReservationCreationDto dto){
@@ -51,11 +54,39 @@ public class ReservationController {
         return reservationService.getNumberOfReservationsInCity(city);
     }
 
-    //@PostMapping("reservations")
-    //@Transactional
-    //public ReservationDto updateReservation(@RequestBody ReservationDto updatingDto) {
-    //    Reservation reservation = reservationService.getReservationById( updatingDto.getId() );
+    @PutMapping("reservations")
+    @Transactional
+    public ReservationDto updateReservation(@RequestBody ReservationDto updatingDto) {
+        Reservation reservation = reservationService.getReservationById( updatingDto.getId() );
+        Payment payment = paymentService.getPaymentById( updatingDto.getPaymentDto().getId() );
 
+        /**
+         * Checks differences on Reservation object
+         */
+        if(! reservation.getThereFlightDepartureCity().equals( updatingDto.getThereFlightDepartureCity() )) { reservation.setThereFlightDepartureCity( updatingDto.getThereFlightDepartureCity() ); }
+        if(! reservation.getThereFlightDepartureAirportCode().equals( updatingDto.getThereFlightDepartureAirportCode() )) { reservation.setThereFlightDepartureAirportCode( updatingDto.getThereFlightDepartureAirportCode() ); }
+        if(! reservation.getThereFlightDestinationCity().equals( updatingDto.getThereFlightDestinationCity() )) { reservation.setThereFlightDestinationCity( updatingDto.getThereFlightDestinationCity() ); }
+        if(! reservation.getThereFlightDestinationAirportCode().equals( updatingDto.getThereFlightDestinationAirportCode() )) { reservation.setThereFlightDestinationAirportCode( updatingDto.getThereFlightDestinationAirportCode() ); }
+        if(! reservation.getThereFlightDate().equals( updatingDto.getThereFlightDate() )) { reservation.setThereFlightDate( updatingDto.getThereFlightDate() ); }
+        if(! reservation.getReturnFlightDepartureCity().equals( updatingDto.getReturnFlightDepartureCity() )) { reservation.setReturnFlightDepartureCity( updatingDto.getReturnFlightDepartureCity() ); }
+        if(! reservation.getReturnFlightDepartureAirportCode().equals( updatingDto.getReturnFlightDepartureAirportCode() )) { reservation.setReturnFlightDepartureAirportCode( updatingDto.getReturnFlightDepartureAirportCode() ); }
+        if(! reservation.getReturnFlightDestinationCity().equals( updatingDto.getReturnFlightDestinationCity() )) { reservation.setReturnFlightDestinationCity( updatingDto.getReturnFlightDestinationCity() ); }
+        if(! reservation.getReturnFlightDestinationAirportCode().equals( updatingDto.getReturnFlightDestinationAirportCode() )) { reservation.setReturnFlightDestinationAirportCode( updatingDto.getReturnFlightDestinationAirportCode() ); }
+        if(! reservation.getReturnFlightDate().equals( updatingDto.getReturnFlightDate() )) { reservation.setReturnFlightDate( updatingDto.getReturnFlightDate() ); }
+        if(! reservation.getName().equals( updatingDto.getName() )) { reservation.setName( updatingDto.getName() ); }
+        if(! reservation.getSurname().equals( updatingDto.getSurname() )) { reservation.setSurname( updatingDto.getSurname() ); }
+        if(! reservation.getEmail().equals( updatingDto.getEmail() )) { reservation.setEmail( updatingDto.getEmail() ); }
+        if(! reservation.getPrice().equals( updatingDto.getPrice() )) { reservation.setPrice( updatingDto.getPrice() ); }
 
-    //}
+        /**
+         * Checks differences on Payment object
+         */
+        if(! payment.getStatus().equals(updatingDto.getPaymentDto().getStatus())) {payment.setStatus( updatingDto.getPaymentDto().getStatus() );}
+        if(! payment.getValue().equals(updatingDto.getPaymentDto().getValue())) {payment.setValue( updatingDto.getPaymentDto().getValue() );}
+        if( payment.getPaymentDate() == null) {payment.setPaymentDate( updatingDto.getPaymentDto().getPaymentDate() );}
+        if(! payment.getPaymentDate().equals(updatingDto.getPaymentDto().getPaymentDate())) {payment.setPaymentDate( updatingDto.getPaymentDto().getPaymentDate() );}
+
+        return reservationMapper.mapToDto(reservation);
+
+    }
 }
