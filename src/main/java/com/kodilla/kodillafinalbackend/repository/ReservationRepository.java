@@ -25,11 +25,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     @Override
     void deleteById(Long id);
 
-    List<Reservation> findAllByEmail(String email);
-
     List<Reservation> findAllBySurname(String surname);
-
-    List<Reservation> findAllByThereFlightDestinationCity(String city);
 
     long countAllByThereFlightDestinationCity(String city);
 }

@@ -121,12 +121,11 @@ public class Reservation {
                 name.equals(that.name) &&
                 surname.equals(that.surname) &&
                 email.equals(that.email) &&
-                price.equals(that.price) &&
-                payment.equals(that.payment);
+                price.equals(that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(thereFlightDepartureCity, thereFlightDepartureAirportCode, thereFlightDestinationCity, thereFlightDestinationAirportCode, thereFlightDate, returnFlightDepartureCity, returnFlightDepartureAirportCode, returnFlightDestinationCity, returnFlightDestinationAirportCode, returnFlightDate, name, surname, email, price, payment);
+        return Objects.hash(thereFlightDepartureCity, thereFlightDepartureAirportCode, thereFlightDestinationCity, thereFlightDestinationAirportCode, thereFlightDate, returnFlightDepartureCity, returnFlightDepartureAirportCode, returnFlightDestinationCity, returnFlightDestinationAirportCode, returnFlightDate, name, surname, email, price);
     }
 }

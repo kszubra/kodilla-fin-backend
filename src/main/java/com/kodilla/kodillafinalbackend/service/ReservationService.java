@@ -6,11 +6,13 @@ import com.kodilla.kodillafinalbackend.enumeration.PaymentStatus;
 import com.kodilla.kodillafinalbackend.exceptions.ReservationNotFoundException;
 import com.kodilla.kodillafinalbackend.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ReservationService {
@@ -19,11 +21,14 @@ public class ReservationService {
 
     @Transactional
     public Reservation addReservation(final Reservation reservation) {
+        log.info("Creating Payment object for reservation");
         Payment payment = Payment.builder()
                 .value( reservation.getPrice() )
                 .status(PaymentStatus.AWAITING)
                 .build();
+        log.info("Saving Payment object to database");
         paymentService.addPayment(payment);
+        log.info("Assigning Payment object to Reservation object");
         reservation.setPayment(payment);
 
         return reservationRepository.save(reservation);
@@ -31,14 +36,6 @@ public class ReservationService {
 
     public Reservation getReservationById(final Long id) {
         return reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new);
-    }
-
-    public List<Reservation> getReservationsByEmail(final String email) {
-        return reservationRepository.findAllByEmail(email);
-    }
-
-    public List<Reservation> getReservationsByDestinationCity(final String city) {
-        return reservationRepository.findAllByThereFlightDestinationCity(city);
     }
 
     public List<Reservation> getReservationsBySurname(final String surname) {

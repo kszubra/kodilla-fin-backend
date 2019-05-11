@@ -1,7 +1,6 @@
 package com.kodilla.kodillafinalbackend.repository;
 
 import com.kodilla.kodillafinalbackend.domain.Payment;
-import com.kodilla.kodillafinalbackend.enumeration.PaymentStatus;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -56,10 +56,7 @@ public class ReservationServiceTest {
 
         //Then
         assertNotNull( result.getPayment() );
-        assertEquals(BigDecimal.valueOf(593.21), result.getPayment().getValue() );
-        assertEquals("rambo@rambo.com", result.getEmail());
-        assertEquals("Warsaw", result.getThereFlightDepartureCity());
-        assertEquals("HAJ", result.getReturnFlightDepartureAirportCode());
+        assertEquals(testReservation, result);
     }
 
     @Test(expected = ReservationNotFoundException.class)
@@ -68,140 +65,6 @@ public class ReservationServiceTest {
         Reservation result = reservationService.getReservationById(34L);
     }
 
-
-    @Test
-    public void testGetReservationsByEmail() {
-        //Given
-        Reservation testReservationOne = Reservation.builder()
-                .name("John")
-                .surname("Rambo")
-                .email("rambo@rambo.com")
-                .price(BigDecimal.valueOf(593.21))
-                .thereFlightDepartureCity("Warsaw")
-                .thereFlightDepartureAirportCode("WMI")
-                .thereFlightDestinationCity("Hanover")
-                .thereFlightDestinationAirportCode("HAJ")
-                .thereFlightDate(LocalDate.of(2019,5,10))
-                .returnFlightDepartureCity("Hanover")
-                .returnFlightDepartureAirportCode("HAJ")
-                .returnFlightDestinationCity("Warsaw")
-                .returnFlightDestinationAirportCode("WMI")
-                .returnFlightDate(LocalDate.of(2019,5,12))
-                .build();
-        Reservation testReservationTwo = Reservation.builder()
-                .name("John")
-                .surname("Rambo")
-                .email("rambo@rambo.com")
-                .price(BigDecimal.valueOf(250.99))
-                .thereFlightDepartureCity("Gdańsk")
-                .thereFlightDepartureAirportCode("GDA")
-                .thereFlightDestinationCity("Hanover")
-                .thereFlightDestinationAirportCode("HAJ")
-                .thereFlightDate(LocalDate.of(2020,5,10))
-                .returnFlightDepartureCity("Hanover")
-                .returnFlightDepartureAirportCode("HAJ")
-                .returnFlightDestinationCity("Gdańsk")
-                .returnFlightDestinationAirportCode("GDA")
-                .returnFlightDate(LocalDate.of(2020,5,12))
-                .build();
-        Reservation testReservationThree = Reservation.builder()
-                .name("John")
-                .surname("Rambo2")
-                .email("rambo2@rambo.com")
-                .price(BigDecimal.valueOf(250.99))
-                .thereFlightDepartureCity("Gdańsk")
-                .thereFlightDepartureAirportCode("GDA")
-                .thereFlightDestinationCity("Hanover")
-                .thereFlightDestinationAirportCode("HAJ")
-                .thereFlightDate(LocalDate.of(2020,5,10))
-                .returnFlightDepartureCity("Hanover")
-                .returnFlightDepartureAirportCode("HAJ")
-                .returnFlightDestinationCity("Gdańsk")
-                .returnFlightDestinationAirportCode("GDA")
-                .returnFlightDate(LocalDate.of(2020,5,12))
-                .build();
-
-        reservationService.addReservation(testReservationOne);
-        reservationService.addReservation(testReservationTwo);
-        reservationService.addReservation(testReservationThree);
-
-        //When
-        List<Reservation> result = reservationService.getReservationsByEmail("rambo@rambo.com");
-
-        //Then
-        assertEquals(2, result.size());
-        assertEquals("WMI", result.get(0).getReturnFlightDestinationAirportCode() );
-        assertEquals("GDA", result.get(1).getReturnFlightDestinationAirportCode() );
-        assertEquals(BigDecimal.valueOf(593.21), result.get(0).getPayment().getValue() );
-        assertEquals(BigDecimal.valueOf(250.99), result.get(1).getPayment().getValue() );
-    }
-
-    @Test
-    public void testGetReservationsByDestinationCity() {
-        //Given
-        Reservation testReservationOne = Reservation.builder()
-                .name("John")
-                .surname("Rambo")
-                .email("rambo@rambo.com")
-                .price(BigDecimal.valueOf(593.21))
-                .thereFlightDepartureCity("Warsaw")
-                .thereFlightDepartureAirportCode("WMI")
-                .thereFlightDestinationCity("Hanover")
-                .thereFlightDestinationAirportCode("HAJ")
-                .thereFlightDate(LocalDate.of(2019,5,10))
-                .returnFlightDepartureCity("Hanover")
-                .returnFlightDepartureAirportCode("HAJ")
-                .returnFlightDestinationCity("Warsaw")
-                .returnFlightDestinationAirportCode("WMI")
-                .returnFlightDate(LocalDate.of(2019,5,12))
-                .build();
-        Reservation testReservationTwo = Reservation.builder()
-                .name("John")
-                .surname("Rambo")
-                .email("rambo@rambo.com")
-                .price(BigDecimal.valueOf(250.99))
-                .thereFlightDepartureCity("Gdańsk")
-                .thereFlightDepartureAirportCode("GDA")
-                .thereFlightDestinationCity("Hanover")
-                .thereFlightDestinationAirportCode("HAJ")
-                .thereFlightDate(LocalDate.of(2020,5,10))
-                .returnFlightDepartureCity("Hanover")
-                .returnFlightDepartureAirportCode("HAJ")
-                .returnFlightDestinationCity("Gdańsk")
-                .returnFlightDestinationAirportCode("GDA")
-                .returnFlightDate(LocalDate.of(2020,5,12))
-                .build();
-        Reservation testReservationThree = Reservation.builder()
-                .name("John")
-                .surname("Rambo2")
-                .email("rambo2@rambo.com")
-                .price(BigDecimal.valueOf(250.99))
-                .thereFlightDepartureCity("Gdańsk")
-                .thereFlightDepartureAirportCode("GDA")
-                .thereFlightDestinationCity("London")
-                .thereFlightDestinationAirportCode("LHR")
-                .thereFlightDate(LocalDate.of(2020,5,10))
-                .returnFlightDepartureCity("Hanover")
-                .returnFlightDepartureAirportCode("HAJ")
-                .returnFlightDestinationCity("Gdańsk")
-                .returnFlightDestinationAirportCode("GDA")
-                .returnFlightDate(LocalDate.of(2020,5,12))
-                .build();
-
-        reservationService.addReservation(testReservationOne);
-        reservationService.addReservation(testReservationTwo);
-        reservationService.addReservation(testReservationThree);
-
-        //When
-        List<Reservation> result = reservationService.getReservationsByDestinationCity("Hanover");
-
-        //Then
-        assertEquals(2, result.size());
-        assertEquals("WMI", result.get(0).getReturnFlightDestinationAirportCode() );
-        assertEquals("GDA", result.get(1).getReturnFlightDestinationAirportCode() );
-        assertEquals(BigDecimal.valueOf(593.21), result.get(0).getPayment().getValue() );
-        assertEquals(BigDecimal.valueOf(250.99), result.get(1).getPayment().getValue() );
-    }
 
     @Test
     public void testGetReservationsBySurname() {
@@ -264,10 +127,8 @@ public class ReservationServiceTest {
 
         //Then
         assertEquals(2, result.size());
-        assertEquals("WMI", result.get(0).getReturnFlightDestinationAirportCode() );
-        assertEquals("GDA", result.get(1).getReturnFlightDestinationAirportCode() );
-        assertEquals(BigDecimal.valueOf(593.21), result.get(0).getPayment().getValue() );
-        assertEquals(BigDecimal.valueOf(250.99), result.get(1).getPayment().getValue() );
+        assertTrue(result.contains(testReservationOne));
+        assertTrue(result.contains(testReservationTwo));
     }
 
     @Test
