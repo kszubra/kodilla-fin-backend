@@ -111,36 +111,6 @@ public class PaymentServiceTest {
     }
 
     @Test
-    public void testGetPaymentsByStatus() {
-        //Given
-        Payment testPaymentOne = Payment.builder()
-                .paymentDate(LocalDate.now())
-                .status(PaymentStatus.PAID)
-                .value(BigDecimal.valueOf(950.59))
-                .build();
-        Payment testPaymentTwo = Payment.builder()
-                .paymentDate(LocalDate.now())
-                .status(PaymentStatus.AWAITING)
-                .value(BigDecimal.valueOf(9.59))
-                .build();
-        Payment testPaymentThree = Payment.builder()
-                .paymentDate(LocalDate.of(1657, 12, 11))
-                .status(PaymentStatus.AWAITING)
-                .value(BigDecimal.valueOf(11.32))
-                .build();
-        List<Payment> payments = Arrays.asList(testPaymentOne, testPaymentTwo, testPaymentThree);
-        payments.forEach(e -> paymentService.addPayment(e));
-
-        //When
-        List<Payment> result = paymentService.getPaymentsByStatus(PaymentStatus.AWAITING);
-
-        //Then
-        assertEquals(2, result.size());
-        assertTrue(result.contains(testPaymentThree));
-        assertTrue(result.contains(testPaymentTwo));
-    }
-
-    @Test
     public void testDeleteAllPayments() {
         //Given
         Payment testPaymentOne = Payment.builder()

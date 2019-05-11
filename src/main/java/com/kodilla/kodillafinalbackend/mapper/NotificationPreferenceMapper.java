@@ -16,7 +16,7 @@ public class NotificationPreferenceMapper {
     private final UserMapper userMapper;
     private final UserService userService;
 
-    public NotificationPreference creationDtoToPreference(NotificationPreferenceCreationDto dto) {
+    public NotificationPreference creationDtoToPreference(final NotificationPreferenceCreationDto dto) {
         return NotificationPreference.builder()
                 .id( dto.getId() )
                 .departureCity( dto.getDepartureCity() )
@@ -28,7 +28,7 @@ public class NotificationPreferenceMapper {
 
     }
 
-    public NotificationPreference mapToPreference(NotificationPreferenceDto dto) {
+    public NotificationPreference mapToPreference(final NotificationPreferenceDto dto) {
         return NotificationPreference.builder()
                 .id( dto.getId() )
                 .departureCity( dto.getDepartureCity() )
@@ -39,13 +39,13 @@ public class NotificationPreferenceMapper {
                 .build();
     }
 
-    public List<NotificationPreference> mapToPreferenceList (List<NotificationPreferenceDto> dtoList) {
+    public List<NotificationPreference> mapToPreferenceList (final List<NotificationPreferenceDto> dtoList) {
         return dtoList.stream()
                 .map(this::mapToPreference)
                 .collect(Collectors.toList());
     }
 
-    public NotificationPreferenceDto mapToPreferenceDto(NotificationPreference preference) {
+    public NotificationPreferenceDto mapToPreferenceDto(final NotificationPreference preference) {
         return NotificationPreferenceDto.builder()
                 .id( preference.getId() )
                 .departureCity( preference.getDepartureCity() )
@@ -56,7 +56,7 @@ public class NotificationPreferenceMapper {
                 .build();
     }
 
-    public List<NotificationPreferenceDto> mapToPrefrenceDtoList(List<NotificationPreference> preferenceList) {
+    public List<NotificationPreferenceDto> mapToPrefrenceDtoList(final List<NotificationPreference> preferenceList) {
         return preferenceList.stream()
                 .map(this::mapToPreferenceDto)
                 .collect(Collectors.toList());

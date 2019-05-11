@@ -33,10 +33,6 @@ public class PaymentService {
         return paymentRepository.findAllByPaymentDate(date);
     }
 
-    public List<Payment> getPaymentsByStatus(final PaymentStatus status) {
-        return paymentRepository.findAlklByStatusEquals(status);
-    }
-
     @Transactional
     public void deleteAllPayments() {
         paymentRepository.deleteAll();

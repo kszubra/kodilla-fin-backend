@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class UserMapper {
     private final NotificationPreferenceService notificationService;
 
-    public User mapRegistrationDtoToUser(UserRegistrationDto dto) {
+    public User mapRegistrationDtoToUser(final UserRegistrationDto dto) {
         return User.builder()
                 .name( dto.getName() )
                 .surname( dto.getSurname() )
@@ -29,7 +29,7 @@ public class UserMapper {
                 .build();
     }
 
-    public User mapToUser (UserDto dto) {
+    public User mapToUser (final UserDto dto) {
         return User.builder()
                 .id( dto.getId() )
                 .name( dto.getName() )
@@ -46,7 +46,7 @@ public class UserMapper {
                 .build();
     }
 
-    public UserDto mapToDto(User user) {
+    public UserDto mapToDto(final User user) {
         return UserDto.builder()
                 .id( user.getId() )
                 .name( user.getName() )
@@ -62,13 +62,13 @@ public class UserMapper {
                 .build();
     }
 
-    public List<User> mapToUserList(List<UserDto> dtoList) {
+    public List<User> mapToUserList(final List<UserDto> dtoList) {
         return dtoList.stream()
                 .map(this::mapToUser)
                 .collect(Collectors.toList());
     }
 
-    public List<UserDto> mapToUserDtoList(List<User> dtoList) {
+    public List<UserDto> mapToUserDtoList(final List<User> dtoList) {
         return dtoList.stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());

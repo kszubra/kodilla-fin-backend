@@ -28,6 +28,4 @@ public interface PaymentRepository extends CrudRepository<Payment, Long> {
     void deleteById(Long id);
 
     List<Payment> findAllByPaymentDate(LocalDate date);
-
-    List<Payment> findAlklByStatusEquals(PaymentStatus status);
 }
