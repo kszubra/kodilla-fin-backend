@@ -112,7 +112,7 @@ public class NotificationPreferenceControllerTest {
                 .userDto(new UserDto())
                 .build();
 
-        NotificationPreference updateDto = NotificationPreference.builder()
+        NotificationPreferenceDto updateDto = NotificationPreferenceDto.builder()
                 .id(2L)
                 .departureCity("Berlin")
                 .minTemperature(18)
