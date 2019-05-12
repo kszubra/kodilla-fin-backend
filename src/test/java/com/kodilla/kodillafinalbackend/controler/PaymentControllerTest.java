@@ -95,7 +95,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void getAllPayments() throws Exception {
+    public void testGetAllPayments() throws Exception {
         //Given
         PaymentDto dtoOne = PaymentDto.builder()
                 .id(1L)
@@ -141,7 +141,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void updatePayment() throws Exception {
+    public void testUpdatePayment() throws Exception {
         //Given
         PaymentDto dto = PaymentDto.builder()
                 .id(1L)
@@ -181,7 +181,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void getPaymentsByDate() throws Exception {
+    public void testGetPaymentsByDate() throws Exception {
         //Given
         PaymentDto dtoOne = PaymentDto.builder()
                 .id(1L)

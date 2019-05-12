@@ -25,8 +25,7 @@ public class ReservationController {
 
     @PostMapping("reservations")
     public void addReservation(@RequestBody ReservationCreationDto dto){
-        Reservation reservation = reservationMapper.mapToReservationFromCreationDto(dto);
-        reservationService.addReservation( reservation );
+        reservationService.addReservation( reservationMapper.mapToReservationFromCreationDto(dto));
     }
 
     @GetMapping("reservations")

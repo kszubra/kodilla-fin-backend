@@ -1,6 +1,5 @@
 package com.kodilla.kodillafinalbackend.mapper;
 
-import com.kodilla.kodillafinalbackend.domain.Payment;
 import com.kodilla.kodillafinalbackend.domain.Reservation;
 import com.kodilla.kodillafinalbackend.domain.dto.ReservationCreationDto;
 import com.kodilla.kodillafinalbackend.domain.dto.ReservationDto;
