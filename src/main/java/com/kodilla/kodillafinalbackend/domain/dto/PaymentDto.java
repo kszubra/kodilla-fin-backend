@@ -17,5 +17,5 @@ public class PaymentDto {
     private Long id;
     private PaymentStatus status;
     private BigDecimal value;
-    private LocalDate paymentDate;
+    private String paymentDate;
 }

@@ -44,7 +44,7 @@ public class PaymentController {
         BigDecimal currentValue = payment.getValue().setScale(2, RoundingMode.HALF_EVEN);
         BigDecimal updatingValue = updatingDto.getValue().setScale(2, RoundingMode.HALF_EVEN);
 
-        if( payment.getPaymentDate() == null ) { payment.setPaymentDate( updatingDto.getPaymentDate() ); }
+        if( payment.getPaymentDate() == null && updatingDto.getPaymentDate() != null ) { payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDate()) ); }
         if(! payment.getStatus().equals( updatingDto.getStatus() ) ) { payment.setStatus( updatingDto.getStatus() ); }
         if(! currentValue.equals(updatingValue)) { payment.setValue( updatingDto.getValue() ); }
 

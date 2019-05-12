@@ -176,8 +176,6 @@ public class PaymentControllerTest {
                 .andExpect(jsonPath("$.status", is("REJECTED")));
 
         verify(paymentService, times(1)).getPaymentById(1L);
-
-
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.kodilla.kodillafinalbackend.domain.dto.ReservationDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,12 @@ public class ReservationMapper {
                 .thereFlightDepartureAirportCode( dto.getThereFlightDepartureAirportCode() )
                 .thereFlightDestinationCity( dto.getThereFlightDestinationCity() )
                 .thereFlightDestinationAirportCode( dto.getThereFlightDestinationAirportCode() )
-                .thereFlightDate( dto.getThereFlightDate() )
+                .thereFlightDate(LocalDate.parse( dto.getThereFlightDate() ))
                 .returnFlightDepartureCity( dto.getReturnFlightDepartureCity() )
                 .returnFlightDepartureAirportCode( dto.getReturnFlightDepartureAirportCode() )
                 .returnFlightDestinationCity( dto.getReturnFlightDestinationCity() )
                 .returnFlightDestinationAirportCode( dto.getReturnFlightDestinationAirportCode() )
-                .returnFlightDate( dto.getReturnFlightDate() )
+                .returnFlightDate( LocalDate.parse( dto.getReturnFlightDate() ) )
                 .name( dto.getName() )
                 .surname( dto.getSurname() )
                 .email( dto.getEmail() )
@@ -40,12 +41,12 @@ public class ReservationMapper {
                 .thereFlightDepartureAirportCode( dto.getThereFlightDepartureAirportCode() )
                 .thereFlightDestinationCity( dto.getThereFlightDestinationCity() )
                 .thereFlightDestinationAirportCode( dto.getThereFlightDestinationAirportCode() )
-                .thereFlightDate( dto.getThereFlightDate() )
+                .thereFlightDate( LocalDate.parse( dto.getThereFlightDate() ) )
                 .returnFlightDepartureCity( dto.getReturnFlightDepartureCity() )
                 .returnFlightDepartureAirportCode( dto.getReturnFlightDepartureAirportCode() )
                 .returnFlightDestinationCity( dto.getReturnFlightDestinationCity() )
                 .returnFlightDestinationAirportCode( dto.getReturnFlightDestinationAirportCode() )
-                .returnFlightDate( dto.getReturnFlightDate() )
+                .returnFlightDate( LocalDate.parse( dto.getReturnFlightDate() ) )
                 .name( dto.getName() )
                 .surname( dto.getSurname() )
                 .email( dto.getEmail() )
@@ -67,12 +68,12 @@ public class ReservationMapper {
                 .thereFlightDepartureAirportCode( reservation.getThereFlightDepartureAirportCode() )
                 .thereFlightDestinationCity( reservation.getThereFlightDestinationCity() )
                 .thereFlightDestinationAirportCode( reservation.getThereFlightDestinationAirportCode() )
-                .thereFlightDate( reservation.getThereFlightDate() )
+                .thereFlightDate( reservation.getThereFlightDate().toString() )
                 .returnFlightDepartureCity( reservation.getReturnFlightDepartureCity() )
                 .returnFlightDepartureAirportCode( reservation.getReturnFlightDepartureAirportCode() )
                 .returnFlightDestinationCity( reservation.getReturnFlightDestinationCity() )
                 .returnFlightDestinationAirportCode( reservation.getReturnFlightDestinationAirportCode() )
-                .returnFlightDate( reservation.getReturnFlightDate() )
+                .returnFlightDate( reservation.getReturnFlightDate().toString() )
                 .name( reservation.getName() )
                 .surname( reservation.getSurname() )
                 .email( reservation.getEmail() )

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -66,12 +67,12 @@ public class ReservationController {
         if(! reservation.getThereFlightDepartureAirportCode().equals( updatingDto.getThereFlightDepartureAirportCode() )) { reservation.setThereFlightDepartureAirportCode( updatingDto.getThereFlightDepartureAirportCode() ); }
         if(! reservation.getThereFlightDestinationCity().equals( updatingDto.getThereFlightDestinationCity() )) { reservation.setThereFlightDestinationCity( updatingDto.getThereFlightDestinationCity() ); }
         if(! reservation.getThereFlightDestinationAirportCode().equals( updatingDto.getThereFlightDestinationAirportCode() )) { reservation.setThereFlightDestinationAirportCode( updatingDto.getThereFlightDestinationAirportCode() ); }
-        if(! reservation.getThereFlightDate().equals( updatingDto.getThereFlightDate() )) { reservation.setThereFlightDate( updatingDto.getThereFlightDate() ); }
+        if(! reservation.getThereFlightDate().equals( updatingDto.getThereFlightDate() )) { reservation.setThereFlightDate(LocalDate.parse(updatingDto.getThereFlightDate())); }
         if(! reservation.getReturnFlightDepartureCity().equals( updatingDto.getReturnFlightDepartureCity() )) { reservation.setReturnFlightDepartureCity( updatingDto.getReturnFlightDepartureCity() ); }
         if(! reservation.getReturnFlightDepartureAirportCode().equals( updatingDto.getReturnFlightDepartureAirportCode() )) { reservation.setReturnFlightDepartureAirportCode( updatingDto.getReturnFlightDepartureAirportCode() ); }
         if(! reservation.getReturnFlightDestinationCity().equals( updatingDto.getReturnFlightDestinationCity() )) { reservation.setReturnFlightDestinationCity( updatingDto.getReturnFlightDestinationCity() ); }
         if(! reservation.getReturnFlightDestinationAirportCode().equals( updatingDto.getReturnFlightDestinationAirportCode() )) { reservation.setReturnFlightDestinationAirportCode( updatingDto.getReturnFlightDestinationAirportCode() ); }
-        if(! reservation.getReturnFlightDate().equals( updatingDto.getReturnFlightDate() )) { reservation.setReturnFlightDate( updatingDto.getReturnFlightDate() ); }
+        if(! reservation.getReturnFlightDate().equals( updatingDto.getReturnFlightDate() )) { reservation.setReturnFlightDate( LocalDate.parse(updatingDto.getReturnFlightDate()) ); }
         if(! reservation.getName().equals( updatingDto.getName() )) { reservation.setName( updatingDto.getName() ); }
         if(! reservation.getSurname().equals( updatingDto.getSurname() )) { reservation.setSurname( updatingDto.getSurname() ); }
         if(! reservation.getEmail().equals( updatingDto.getEmail() )) { reservation.setEmail( updatingDto.getEmail() ); }
@@ -82,8 +83,8 @@ public class ReservationController {
          */
         if(! payment.getStatus().equals(updatingDto.getPaymentDto().getStatus())) {payment.setStatus( updatingDto.getPaymentDto().getStatus() );}
         if(! payment.getValue().equals(updatingDto.getPaymentDto().getValue())) {payment.setValue( updatingDto.getPaymentDto().getValue() );}
-        if( payment.getPaymentDate() == null) {payment.setPaymentDate( updatingDto.getPaymentDto().getPaymentDate() );}
-        if(! payment.getPaymentDate().equals(updatingDto.getPaymentDto().getPaymentDate())) {payment.setPaymentDate( updatingDto.getPaymentDto().getPaymentDate() );}
+        if( payment.getPaymentDate() == null) {payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );}
+        if(! payment.getPaymentDate().equals(updatingDto.getPaymentDto().getPaymentDate())) {payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );}
 
         return reservationMapper.mapToDto(reservation);
 

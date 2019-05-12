@@ -16,12 +16,12 @@ public class ReservationDto {
     private String thereFlightDepartureAirportCode;
     private String thereFlightDestinationCity;
     private String thereFlightDestinationAirportCode;
-    private LocalDate thereFlightDate;
+    private String thereFlightDate;
     private String returnFlightDepartureCity;
     private String returnFlightDepartureAirportCode;
     private String returnFlightDestinationCity;
     private String returnFlightDestinationAirportCode;
-    private LocalDate returnFlightDate;
+    private String returnFlightDate;
     private String name;
     private String surname;
     private String email;

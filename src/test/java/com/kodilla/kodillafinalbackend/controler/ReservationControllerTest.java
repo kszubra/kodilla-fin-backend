@@ -111,8 +111,6 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(LocalDate.of(2019,10,16))
-                .returnFlightDate( LocalDate.of(2019,10,18) )
                 .name( "John" )
                 .surname( "Rambo" )
                 .email( "rambo@rambo.com" )
@@ -147,8 +145,6 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(LocalDate.of(2019,10,16))
-                .returnFlightDate( LocalDate.of(2019,10,18) )
                 .name( "Bob" )
                 .surname( "Marley" )
                 .email( "mail@mail" )
@@ -203,8 +199,6 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(LocalDate.of(2019,10,16))
-                .returnFlightDate( LocalDate.of(2019,10,18) )
                 .name( "John" )
                 .surname( "Rambo" )
                 .email( "rambo@rambo.com" )
@@ -253,8 +247,6 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(LocalDate.of(2019,10,16))
-                .returnFlightDate( LocalDate.of(2019,10,18) )
                 .name( "John" )
                 .surname( "Rambo" )
                 .email( "rambo@rambo.com" )
@@ -313,21 +305,21 @@ public class ReservationControllerTest {
         verify(reservationService, times(1)).getNumberOfReservationsInCity("Hanover");
     }
 
-    @Ignore
     @Test
     public void testUpdateReservation() throws Exception {
         //Given
-        LocalDate date = LocalDate.MIN;
         PaymentDto paymentDto = PaymentDto.builder()
                 .id(2L)
                 .status(PaymentStatus.AWAITING)
                 .value( BigDecimal.valueOf(250.55) )
+                .paymentDate("2019-07-07")
                 .build();
 
         Payment payment = Payment.builder()
                 .id(2L)
                 .status(PaymentStatus.AWAITING)
                 .value( BigDecimal.valueOf(250.55) )
+                .paymentDate(LocalDate.parse("2019-07-07"))
                 .build();
 
         ReservationDto reservationDto = ReservationDto.builder()
@@ -340,8 +332,8 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(date)
-                .returnFlightDate(date)
+                .thereFlightDate("2019-07-07")
+                .returnFlightDate("2019-07-07")
                 .name( "John" )
                 .surname( "Rambo" )
                 .email( "rambo@rambo.com" )
@@ -359,8 +351,8 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(date)
-                .returnFlightDate(date)
+                .thereFlightDate("2019-07-07")
+                .returnFlightDate("2019-07-07")
                 .name( "Johnson" )
                 .surname( "Johnson" )
                 .email( "rambo@rambo.com" )
@@ -378,8 +370,8 @@ public class ReservationControllerTest {
                 .returnFlightDepartureAirportCode( "HAJ" )
                 .returnFlightDestinationCity( "Warsaw" )
                 .returnFlightDestinationAirportCode( "WAW" )
-                .thereFlightDate(date)
-                .returnFlightDate( date)
+                .thereFlightDate(LocalDate.parse("2019-07-07"))
+                .returnFlightDate(LocalDate.parse("2019-07-07"))
                 .name( "John" )
                 .surname( "Rambo" )
                 .email( "rambo@rambo.com" )

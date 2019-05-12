@@ -5,6 +5,7 @@ import com.kodilla.kodillafinalbackend.domain.dto.PaymentDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class PaymentMapper {
     public Payment mapToPayment(final PaymentDto dto) {
         return Payment.builder()
                 .id( dto.getId() )
-                .paymentDate( dto.getPaymentDate() )
+                .paymentDate( LocalDate.parse(dto.getPaymentDate()) )
                 .status( dto.getStatus() )
                 .value( dto.getValue() )
                 .build();
@@ -30,7 +31,7 @@ public class PaymentMapper {
     public PaymentDto mapToDto(final Payment payment) {
         return PaymentDto.builder()
                 .id( payment.getId() )
-                .paymentDate( payment.getPaymentDate() )
+                .paymentDate( payment.getPaymentDate().toString() )
                 .status( payment.getStatus() )
                 .value( payment.getValue() )
                 .build();
