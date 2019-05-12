@@ -83,8 +83,13 @@ public class ReservationController {
          */
         if(! payment.getStatus().equals(updatingDto.getPaymentDto().getStatus())) {payment.setStatus( updatingDto.getPaymentDto().getStatus() );}
         if(! payment.getValue().equals(updatingDto.getPaymentDto().getValue())) {payment.setValue( updatingDto.getPaymentDto().getValue() );}
-        if( payment.getPaymentDate() == null) {payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );}
-        if(! payment.getPaymentDate().equals(updatingDto.getPaymentDto().getPaymentDate())) {payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );}
+        if(! payment.hasPaymentDate() && updatingDto.getPaymentDto().hasValidDate() ) { payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) ); }
+        if(
+                payment.hasPaymentDate()   &&
+                        updatingDto.getPaymentDto().hasValidDate() &&
+                        !( payment.getPaymentDate().toString().equals( updatingDto.getPaymentDto().getPaymentDate() )  )
+
+        ) {payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );}
 
         return reservationMapper.mapToDto(reservation);
 

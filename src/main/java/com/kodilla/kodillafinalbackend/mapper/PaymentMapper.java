@@ -28,10 +28,28 @@ public class PaymentMapper {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * NOTE FOR REVIEW:
+     * Method checks if result is Null or not to not cause NullPointerException.
+     * Way better solution would be Optional<LocalDate>, but it cannot be saved to database and would require
+     * refactoring whole code to 3 layers (database entities, domain, dto) that would consume too much time.
+     * Possible refactoring in the future with more time.
+     *
+     * @param payment
+     * @return
+     */
+    private String getPaymentDateString(final Payment payment) {
+        if(payment.hasPaymentDate()) {
+            return payment.getPaymentDate().toString();
+        }
+
+        return "UNPAID";
+    }
+
     public PaymentDto mapToDto(final Payment payment) {
         return PaymentDto.builder()
                 .id( payment.getId() )
-                .paymentDate( payment.getPaymentDate().toString() )
+                .paymentDate( this.getPaymentDateString(payment) )
                 .status( payment.getStatus() )
                 .value( payment.getValue() )
                 .build();

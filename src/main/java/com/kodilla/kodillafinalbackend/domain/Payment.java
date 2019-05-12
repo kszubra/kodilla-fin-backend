@@ -22,15 +22,16 @@ public class Payment {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
-
     @NotNull
     private BigDecimal value;
-
     private LocalDate paymentDate;
+
+    public boolean hasPaymentDate() {
+        return !(paymentDate==null);
+    }
 
     @Override
     public String toString() {

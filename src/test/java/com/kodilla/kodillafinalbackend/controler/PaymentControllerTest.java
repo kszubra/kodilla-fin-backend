@@ -147,6 +147,7 @@ public class PaymentControllerTest {
                 .id(1L)
                 .status(PaymentStatus.REJECTED)
                 .value( BigDecimal.valueOf(100.55) )
+                .paymentDate("UNPAID")
                 .build();
 
         Payment payment = Payment.builder()
@@ -158,6 +159,7 @@ public class PaymentControllerTest {
         PaymentDto updateDto = PaymentDto.builder()
                 .id(1L)
                 .status(PaymentStatus.REJECTED)
+                .paymentDate("2019-05-08")
                 .value( BigDecimal.valueOf(100.55) )
                 .build();
 
