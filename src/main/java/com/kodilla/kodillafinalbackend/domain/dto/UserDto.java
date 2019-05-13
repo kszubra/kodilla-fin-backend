@@ -17,7 +17,7 @@ public class UserDto {
     private String surname;
     private String email;
     private String securePassword;
-    private LocalDate registered;
+    private String registered;
     private Set<Long> notificationIds;
 
 }

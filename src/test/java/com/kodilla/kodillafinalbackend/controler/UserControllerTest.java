@@ -86,7 +86,7 @@ public class UserControllerTest {
                 .name("John")
                 .surname("Rambo")
                 .email("rambo@rambo.com")
-                .registered(LocalDate.parse("2019-05-07"))
+                .registered("2019-05-07")
                 .securePassword("123456789")
                 .notificationIds(new HashSet<>())
                 .build();
@@ -130,7 +130,7 @@ public class UserControllerTest {
                 .name("John")
                 .surname("Rambo")
                 .email("rambo@rambo.com")
-                .registered(LocalDate.now())
+                .registered(LocalDate.now().toString())
                 .securePassword("123456789")
                 .notificationIds(new HashSet<>())
                 .build();
@@ -138,7 +138,7 @@ public class UserControllerTest {
                 .name("John")
                 .surname("Rambo 2")
                 .email("rambo@rambo32.com")
-                .registered(LocalDate.now())
+                .registered(LocalDate.now().toString())
                 .securePassword("123456789")
                 .notificationIds(new HashSet<>())
                 .build();
@@ -176,6 +176,7 @@ public class UserControllerTest {
                 .surname("Rambo 2")
                 .email("rambo@rambo.com")
                 .securePassword("123456789")
+                .registered("2019-05-07")
                 .build();
         when(userService.getUserById(1L)).thenReturn(testUser);
         when(userMapper.mapToUser(dto)).thenReturn(testUser);

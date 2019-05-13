@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -42,7 +43,7 @@ public class UserController {
         if(! user.getSurname().equals( updatingDto.getSurname() )) { user.setSurname( updatingDto.getSurname() ); }
         if(! user.getEmail().equals( updatingDto.getEmail() )) { user.setEmail( updatingDto.getEmail() ); }
         if(! user.getSecurePassword().equals( updatingDto.getSecurePassword() )) { user.setSecurePassword( updatingDto.getSecurePassword() ); }
-        if(! user.getRegistered().equals( updatingDto.getRegistered() )) { user.setRegistered( updatingDto.getRegistered() ); }
+        if(! user.getRegistered().equals(LocalDate.parse( updatingDto.getRegistered() ))) { user.setRegistered( LocalDate.parse( updatingDto.getRegistered() ) ); }
 
         return userMapper.mapToDto(user);
     }

@@ -64,7 +64,7 @@ public class NotificationScheduler {
     /**
      * Every 24 hours sends emails
      */
-    @Scheduled(fixedDelay = 86400000)
+    //@Scheduled(fixedDelay = 86400000)
     public void notifyAboutOffers(){
          Map<String, String> emailAndOfferMessage = getEmailAndOfferMessage( offersCreator.getPreferencesAndOffers() );
 

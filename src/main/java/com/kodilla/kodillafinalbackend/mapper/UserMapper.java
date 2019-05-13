@@ -35,7 +35,7 @@ public class UserMapper {
                 .name( dto.getName() )
                 .surname( dto.getSurname() )
                 .email( dto.getEmail() )
-                .registered( dto.getRegistered() )
+                .registered( LocalDate.parse(dto.getRegistered()) )
                 .securePassword( dto.getSecurePassword() )
                 .notificationPreferences(
                         dto.getNotificationIds().stream()
@@ -53,7 +53,7 @@ public class UserMapper {
                 .surname( user.getSurname() )
                 .email( user.getEmail() )
                 .securePassword( user.getSecurePassword() )
-                .registered( user.getRegistered() )
+                .registered( user.getRegistered().toString() )
                 .notificationIds(
                         user.getNotificationPreferences().stream()
                             .map(NotificationPreference::getId)
