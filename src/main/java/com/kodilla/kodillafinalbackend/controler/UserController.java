@@ -43,7 +43,6 @@ public class UserController {
         if(! user.getSurname().equals( updatingDto.getSurname() )) { user.setSurname( updatingDto.getSurname() ); }
         if(! user.getEmail().equals( updatingDto.getEmail() )) { user.setEmail( updatingDto.getEmail() ); }
         if(! user.getSecurePassword().equals( updatingDto.getSecurePassword() )) { user.setSecurePassword( updatingDto.getSecurePassword() ); }
-        if(! user.getRegistered().equals(LocalDate.parse( updatingDto.getRegistered() ))) { user.setRegistered( LocalDate.parse( updatingDto.getRegistered() ) ); }
 
         return userMapper.mapToDto(user);
     }
