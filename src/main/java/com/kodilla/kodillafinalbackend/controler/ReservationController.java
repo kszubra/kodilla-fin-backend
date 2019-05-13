@@ -89,7 +89,9 @@ public class ReservationController {
                         updatingDto.getPaymentDto().hasValidDate() &&
                         !( payment.getPaymentDate().toString().equals( updatingDto.getPaymentDto().getPaymentDate() )  )
 
-        ) {payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );}
+        ) {
+            payment.setPaymentDate( LocalDate.parse(updatingDto.getPaymentDto().getPaymentDate()) );
+        }
 
         return reservationMapper.mapToDto(reservation);
 
