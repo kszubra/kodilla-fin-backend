@@ -52,7 +52,7 @@ public class CoreConfiguration implements WebMvcConfigurer {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.kodilla.libraryapi.controller")) //TODO: change for new directory when ready
+                .apis(RequestHandlerSelectors.basePackage("com.kodilla.kodillafinalbackend.controler"))
                 .paths(PathSelectors.any())
                 .build();
     }
