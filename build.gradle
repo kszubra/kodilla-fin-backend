@@ -48,10 +48,10 @@ dependencies {
     compile('io.springfox:springfox-swagger-ui:2.7.0')
 
     //RUNTIME DATABASE
-    //runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
 
     //TRY DATABASE
-    runtimeOnly 'mysql:mysql-connector-java'
+    //runtimeOnly 'mysql:mysql-connector-java'
 
     //TEST DATABASE
     testRuntime('com.h2database:h2')
