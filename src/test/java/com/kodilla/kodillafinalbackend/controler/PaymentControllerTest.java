@@ -130,13 +130,13 @@ public class PaymentControllerTest {
         // When & Then
         mockMvc.perform(get("/payments").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].status", is("AWAITING")))
-                .andExpect(jsonPath("$[0].value", is(250.55)))
-                .andExpect(jsonPath("$[1].id", is(2)))
-                .andExpect(jsonPath("$[1].status", is("REJECTED")))
-                .andExpect(jsonPath("$[1].value", is(250.55)));
+                .andExpect(jsonPath("$.payments", hasSize(2)))
+                .andExpect(jsonPath("$.payments[0].id", is(1)))
+                .andExpect(jsonPath("$.payments[0].status", is("AWAITING")))
+                .andExpect(jsonPath("$.payments[0].value", is(250.55)))
+                .andExpect(jsonPath("$.payments[1].id", is(2)))
+                .andExpect(jsonPath("$.payments[1].status", is("REJECTED")))
+                .andExpect(jsonPath("$.payments[1].value", is(250.55)));
         verify(paymentService, times(1)).getAllPayments();
     }
 
@@ -216,13 +216,13 @@ public class PaymentControllerTest {
         // When & Then
         mockMvc.perform(get("/payments/?date=2019-05-15").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].status", is("AWAITING")))
-                .andExpect(jsonPath("$[0].value", is(250.55)))
-                .andExpect(jsonPath("$[1].id", is(2)))
-                .andExpect(jsonPath("$[1].status", is("REJECTED")))
-                .andExpect(jsonPath("$[1].value", is(250.55)));
+                .andExpect(jsonPath("$.payments", hasSize(2)))
+                .andExpect(jsonPath("$.payments[0].id", is(1)))
+                .andExpect(jsonPath("$.payments[0].status", is("AWAITING")))
+                .andExpect(jsonPath("$.payments[0].value", is(250.55)))
+                .andExpect(jsonPath("$.payments[1].id", is(2)))
+                .andExpect(jsonPath("$.payments[1].status", is("REJECTED")))
+                .andExpect(jsonPath("$.payments[1].value", is(250.55)));
         verify(paymentService, times(1)).getPaymentsByDate(LocalDate.parse("2019-05-15")) ;
     }
 

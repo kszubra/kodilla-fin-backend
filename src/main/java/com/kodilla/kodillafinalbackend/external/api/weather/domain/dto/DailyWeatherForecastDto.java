@@ -23,6 +23,4 @@ public class DailyWeatherForecastDto {
 
     @JsonProperty("valid_date")
     private String date;
-
-
 }

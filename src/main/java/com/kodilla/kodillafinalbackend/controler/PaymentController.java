@@ -2,6 +2,7 @@ package com.kodilla.kodillafinalbackend.controler;
 
 import com.kodilla.kodillafinalbackend.domain.Payment;
 import com.kodilla.kodillafinalbackend.domain.dto.PaymentDto;
+import com.kodilla.kodillafinalbackend.domain.dto.PaymentListDto;
 import com.kodilla.kodillafinalbackend.exceptions.WrongDateFormatException;
 import com.kodilla.kodillafinalbackend.mapper.PaymentMapper;
 import com.kodilla.kodillafinalbackend.service.PaymentService;
@@ -12,7 +13,6 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
@@ -33,8 +33,8 @@ public class PaymentController {
     }
 
     @GetMapping("payments")
-    public List<PaymentDto> getAllPayments() {
-        return paymentMapper.mapToDtoList( paymentService.getAllPayments() );
+    public PaymentListDto getAllPayments() {
+        return new PaymentListDto( paymentMapper.mapToDtoList( paymentService.getAllPayments()) );
     }
 
     @PutMapping("payments")
@@ -58,10 +58,10 @@ public class PaymentController {
     }
 
     @GetMapping("payments/")
-    public List<PaymentDto> getPaymentsByDate(@RequestParam("date") String date) {
+    public  PaymentListDto getPaymentsByDate(@RequestParam("date") String date) {
         Pattern datePattern = Pattern.compile("^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$");
         if(datePattern.matcher( date ).matches()) {
-            return paymentMapper.mapToDtoList( paymentService.getPaymentsByDate(LocalDate.parse(date)) );
+            return new PaymentListDto( paymentMapper.mapToDtoList( paymentService.getPaymentsByDate(LocalDate.parse(date)) ) );
         }
         throw new WrongDateFormatException();
     }
