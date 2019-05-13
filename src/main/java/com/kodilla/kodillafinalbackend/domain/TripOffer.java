@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,10 +19,10 @@ public class TripOffer {
 
     @Override
     public String toString() {
-        return "TripOffer{" +
-                "thereConnection=" + thereConnection +
-                ", returnConnection=" + returnConnection +
-                ", price=" + price +
+        return "Trip: " +
+                "your flight there: " + thereConnection +
+                ", return flight: " + returnConnection +
+                ", with total cost of: " + price.setScale(2, RoundingMode.HALF_EVEN) +
                 '}';
     }
 }
