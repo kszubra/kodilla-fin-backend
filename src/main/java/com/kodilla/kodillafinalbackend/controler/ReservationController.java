@@ -4,6 +4,7 @@ import com.kodilla.kodillafinalbackend.domain.Payment;
 import com.kodilla.kodillafinalbackend.domain.Reservation;
 import com.kodilla.kodillafinalbackend.domain.dto.ReservationCreationDto;
 import com.kodilla.kodillafinalbackend.domain.dto.ReservationDto;
+import com.kodilla.kodillafinalbackend.domain.dto.ReservationListDto;
 import com.kodilla.kodillafinalbackend.mapper.ReservationMapper;
 import com.kodilla.kodillafinalbackend.service.PaymentService;
 import com.kodilla.kodillafinalbackend.service.ReservationService;
@@ -30,8 +31,8 @@ public class ReservationController {
     }
 
     @GetMapping("reservations")
-    public List<ReservationDto> getReservations() {
-        return reservationMapper.mapToDtoList( reservationService.getAllReservations() );
+    public ReservationListDto getReservations() {
+        return new ReservationListDto( reservationMapper.mapToDtoList( reservationService.getAllReservations() ) ) ;
     }
 
     @GetMapping("reservations/{id}")
@@ -40,8 +41,8 @@ public class ReservationController {
     }
 
     @GetMapping("reservations/")
-    public List<ReservationDto> getReservationBySurname(@RequestParam("surname") String surname) {
-        return reservationMapper.mapToDtoList( reservationService.getReservationsBySurname(surname) );
+    public ReservationListDto getReservationBySurname(@RequestParam("surname") String surname) {
+        return new ReservationListDto( reservationMapper.mapToDtoList( reservationService.getReservationsBySurname(surname) ) ) ;
     }
 
     @DeleteMapping("reservations/{id}")

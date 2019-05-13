@@ -3,6 +3,7 @@ package com.kodilla.kodillafinalbackend.controler;
 import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
 import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceCreationDto;
 import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceDto;
+import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceListDto;
 import com.kodilla.kodillafinalbackend.mapper.NotificationPreferenceMapper;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
 import com.kodilla.kodillafinalbackend.service.NotificationPreferenceService;
@@ -45,13 +46,13 @@ public class NotificationPreferenceController {
     }
 
     @GetMapping("preferences")
-    public List<NotificationPreferenceDto> getPreferences() {
-        return preferenceMapper.mapToPrefrenceDtoList( preferenceService.getAllPreferences() );
+    public NotificationPreferenceListDto getPreferences() {
+        return new NotificationPreferenceListDto( preferenceMapper.mapToPrefrenceDtoList( preferenceService.getAllPreferences() ) );
     }
 
     @GetMapping("preferences/")
-    public List<NotificationPreferenceDto> getPreferencesByDestinationCity(@RequestParam("city") String city) {
-        return preferenceMapper.mapToPrefrenceDtoList( preferenceService.getAllPreferencesByCity(city) );
+    public NotificationPreferenceListDto getPreferencesByDestinationCity(@RequestParam("city") String city) {
+        return new NotificationPreferenceListDto( preferenceMapper.mapToPrefrenceDtoList( preferenceService.getAllPreferencesByCity(city) ) );
     }
 
     @GetMapping("preferences/{id}")

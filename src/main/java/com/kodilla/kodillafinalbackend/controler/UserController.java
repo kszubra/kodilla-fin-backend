@@ -2,6 +2,7 @@ package com.kodilla.kodillafinalbackend.controler;
 
 import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.domain.dto.UserDto;
+import com.kodilla.kodillafinalbackend.domain.dto.UserListDto;
 import com.kodilla.kodillafinalbackend.domain.dto.UserRegistrationDto;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
 import com.kodilla.kodillafinalbackend.service.UserService;
@@ -9,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @RestController
 @RequestMapping
@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping("users")
-    public List<UserDto> getUsers() {
-        return userMapper.mapToUserDtoList( userService.getAllUsers() );
+    public UserListDto getUsers() {
+        return new UserListDto( userMapper.mapToUserDtoList( userService.getAllUsers() ) ) ;
     }
 
     @PutMapping("users")

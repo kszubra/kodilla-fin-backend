@@ -187,11 +187,11 @@ public class NotificationPreferenceControllerTest {
         // When & Then
         mockMvc.perform(get("/preferences").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].departureCity", is("Warsaw")))
-                .andExpect(jsonPath("$[0].destinationCity", is("Paris")))
-                .andExpect(jsonPath("$[1].departureCity", is("New York")))
-                .andExpect(jsonPath("$[1].destinationCity", is("Vienna")));
+                .andExpect(jsonPath("$.preferences", hasSize(2)))
+                .andExpect(jsonPath("$.preferences[0].departureCity", is("Warsaw")))
+                .andExpect(jsonPath("$.preferences[0].destinationCity", is("Paris")))
+                .andExpect(jsonPath("$.preferences[1].departureCity", is("New York")))
+                .andExpect(jsonPath("$.preferences[1].destinationCity", is("Vienna")));
 
         verify(preferenceService, times(1)).getAllPreferences();
 
@@ -225,11 +225,11 @@ public class NotificationPreferenceControllerTest {
         // When & Then
         mockMvc.perform(get("/preferences/?city=Paris").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].departureCity", is("Warsaw")))
-                .andExpect(jsonPath("$[0].destinationCity", is("Paris")))
-                .andExpect(jsonPath("$[0].minTemperature", is(10)))
-                .andExpect(jsonPath("$[0].maxPrice", is(500.00)));
+                .andExpect(jsonPath("$.preferences", hasSize(1)))
+                .andExpect(jsonPath("$.preferences[0].departureCity", is("Warsaw")))
+                .andExpect(jsonPath("$.preferences[0].destinationCity", is("Paris")))
+                .andExpect(jsonPath("$.preferences[0].minTemperature", is(10)))
+                .andExpect(jsonPath("$.preferences[0].maxPrice", is(500.00)));
 
         verify(preferenceService, times(1)).getAllPreferencesByCity("Paris");
     }

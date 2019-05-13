@@ -11,7 +11,6 @@ import com.kodilla.kodillafinalbackend.mapper.PaymentMapper;
 import com.kodilla.kodillafinalbackend.mapper.ReservationMapper;
 import com.kodilla.kodillafinalbackend.service.PaymentService;
 import com.kodilla.kodillafinalbackend.service.ReservationService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,11 +177,11 @@ public class ReservationControllerTest {
         //When & then
         mockMvc.perform(get("/reservations").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name", is("John")))
-                .andExpect(jsonPath("$[0].surname", is("Rambo")))
-                .andExpect(jsonPath("$[1].name", is("Bob")))
-                .andExpect(jsonPath("$[1].surname", is("Marley")));
+                .andExpect(jsonPath("$.reservations", hasSize(2)))
+                .andExpect(jsonPath("$.reservations[0].name", is("John")))
+                .andExpect(jsonPath("$.reservations[0].surname", is("Rambo")))
+                .andExpect(jsonPath("$.reservations[1].name", is("Bob")))
+                .andExpect(jsonPath("$.reservations[1].surname", is("Marley")));
 
         verify(reservationService, times(1)).getAllReservations();
     }
@@ -280,9 +279,9 @@ public class ReservationControllerTest {
         //When & then
         mockMvc.perform(get("/reservations/?surname=Rambo").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is("John")))
-                .andExpect(jsonPath("$[0].surname", is("Rambo")));
+                .andExpect(jsonPath("$.reservations", hasSize(1)))
+                .andExpect(jsonPath("$.reservations[0].name", is("John")))
+                .andExpect(jsonPath("$.reservations[0].surname", is("Rambo")));
         verify(reservationService, times(1)).getReservationsBySurname("Rambo");
     }
 

@@ -150,11 +150,11 @@ public class UserControllerTest {
         // When & Then
         mockMvc.perform(get("/users").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].surname", is("Rambo")))
-                .andExpect(jsonPath("$[0].email", is("rambo@rambo.com")))
-                .andExpect(jsonPath("$[1].surname", is("Rambo 2")))
-                .andExpect(jsonPath("$[1].email", is("rambo@rambo32.com")));
+                .andExpect(jsonPath("$.users", hasSize(2)))
+                .andExpect(jsonPath("$.users[0].surname", is("Rambo")))
+                .andExpect(jsonPath("$.users[0].email", is("rambo@rambo.com")))
+                .andExpect(jsonPath("$.users[1].surname", is("Rambo 2")))
+                .andExpect(jsonPath("$.users[1].email", is("rambo@rambo32.com")));
 
         verify(userService, times(1)).getAllUsers();
     }
