@@ -16,7 +16,7 @@ public class PaymentMapper {
     public Payment mapToPayment(final PaymentDto dto) {
         return Payment.builder()
                 .id( dto.getId() )
-                .paymentDate( LocalDate.parse(dto.getPaymentDate()) )
+                .paymentDate( (dto.getPaymentDate().equals("UNPAID"))? null : LocalDate.parse(dto.getPaymentDate()) )
                 .status( dto.getStatus() )
                 .value( dto.getValue() )
                 .build();
