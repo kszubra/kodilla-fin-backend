@@ -5,7 +5,9 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
 
 group = 'com.kodilla'
 version = '0.0.1-SNAPSHOT'
@@ -47,10 +49,10 @@ dependencies {
     compile('io.springfox:springfox-swagger-ui:2.7.0')
 
     //RUNTIME DATABASE
-    //runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
 
     //LOCAL DATABASE
-    runtimeOnly 'mysql:mysql-connector-java'
+    //runtimeOnly 'mysql:mysql-connector-java'
 
     //TEST DATABASE
     testRuntime('com.h2database:h2')
