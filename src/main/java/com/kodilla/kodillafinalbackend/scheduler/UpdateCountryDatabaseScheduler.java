@@ -4,12 +4,14 @@ import com.kodilla.kodillafinalbackend.external.api.countries.RestcountriesFacad
 import com.kodilla.kodillafinalbackend.service.CountryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 @Slf4j
+@EnableAspectJAutoProxy
 public class UpdateCountryDatabaseScheduler {
     private final CountryService countryService;
     private final RestcountriesFacade restcountriesFacade;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,26 +27,23 @@ public class CountryServiceTest {
         countryService.deleteAllCountries();
     }
 
+    @Transactional
     @Test
     public void testAddCountry() {
         //Given
         Country testCountryOne = new Country(1L, "Poland", "Warsaw");
-        Country testCountryTwo = new Country(2L, "Germany", "Berlin");
-        Country testCountryThree = new Country(3L, "Russia", "Moscow");
+
 
         //When
         countryService.addCountry(testCountryOne);
-        countryService.addCountry(testCountryTwo);
-        countryService.addCountry(testCountryThree);
         List<Country> result = countryService.getAllCountries();
 
         //Then
-        assertEquals(3, result.size());
+        assertEquals(1, result.size());
         assertTrue(result.contains(testCountryOne));
-        assertTrue(result.contains(testCountryTwo));
-        assertTrue(result.contains(testCountryThree));
     }
 
+    @Transactional
     @Test
     public void testGetCountryById() {
         //Given
@@ -62,6 +60,7 @@ public class CountryServiceTest {
         assertEquals(testCountryOne, result);
     }
 
+    @Transactional
     @Test
     public void testGetCountryByName() {
         //Given
@@ -78,6 +77,7 @@ public class CountryServiceTest {
         assertEquals(testCountryOne, result);
     }
 
+    @Transactional
     @Test
     public void testUpdateDatabase() {
         //Given
@@ -108,6 +108,7 @@ public class CountryServiceTest {
                 });
     }
 
+    @Transactional
     @Test(expected = CountryNotFoundException.class)
     public void testGettingCountryByNotExistingId() {
         //Given
@@ -118,6 +119,7 @@ public class CountryServiceTest {
         Country result = countryService.getCountryById(3L);
     }
 
+    @Transactional
     @Test(expected = CountryNotFoundException.class)
     public void testGettingCountryByNotExistingName() {
         //Given
