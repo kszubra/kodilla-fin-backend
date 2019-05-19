@@ -32,16 +32,16 @@ public class CoreConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    //@Override
-    //public void addCorsMappings(CorsRegistry registry) {
-    //    registry.addMapping("/**"); //TODO: change for new directory when ready
-    //}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**"); //TODO: change for new directory when ready
+    }
 
-    //@Bean
-    //public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
-    //webServerFactoryCustomizer() {
-    //    return factory -> factory.setContextPath("/weekendflights");
-    //}
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
+    webServerFactoryCustomizer() {
+        return factory -> factory.setContextPath("/weekendflights");
+    }
 
     @Bean
     public RestTemplate restTemplate() {
