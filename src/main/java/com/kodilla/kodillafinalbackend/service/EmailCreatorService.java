@@ -1,6 +1,5 @@
 package com.kodilla.kodillafinalbackend.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -8,8 +7,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class EmailCreatorService {
@@ -24,10 +21,6 @@ public class EmailCreatorService {
     }
 
     private String buildUserCustomNotificationEmail(String message) {
-        List<String> functionality = new ArrayList<>();
-        functionality.add("Functionality 1");
-        functionality.add("Functionality 2");
-        functionality.add("Functionality 3");
 
         Context context = new Context(); // wewnątrz niej deklarujemy zmienne do widoku, który później przeprocesujemy za pomocą silnika szablonów wywołując templateEngine.process(). Nie stosujemy w tym wypadku modelu w którym rozszerzaliśmy mapę, ponieważ w tym wypadku Thymeleaf potrzebuje kontekstu dla swojego silnika widoku szablonu. Przyczyną tego rozwiązania jest obowiązek utworzenia w jednej metodzie widoku już ze wstawionymi zmiennymi do szablonu, przed wysłaniem maila.
         context.setVariable("message", message);
@@ -37,7 +30,6 @@ public class EmailCreatorService {
         context.setVariable("show_button", true);
         context.setVariable("is_after_12", isAfterNoon());
         context.setVariable("company_details", "Company: weekend flights");
-        context.setVariable("application_functionality", functionality);
         context.setVariable("customer_name", "TEST NAME HERE");
 
         return templateEngine.process("mail/custom-user-notification-mail", context); //Metoda process() przyjmuje dwa argumenty, jednym z nich jest ścieżka szablonu mail. Metoda wie już, że ma szukać szablonów w katalogu resources/templates, jeśli jednak umiejscowiliśmy nasz szablon "głębiej" w strukturze folderów, należy dodać taką informację w argumencie. Drugim argumentem jest Context, czyli obiekt przechowujący zmienne do widoku.
