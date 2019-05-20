@@ -21,10 +21,11 @@ public class WatcherTest {
 
     @Test
     @Transactional
-    public void measureNotificationTime() {
+    public void testMeasureNotificationTime() {
         //Given
        scheduler.notifyAboutOffers();
 
        //then
     }
+
 }

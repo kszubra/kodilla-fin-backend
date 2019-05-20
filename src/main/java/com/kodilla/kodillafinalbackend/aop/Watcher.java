@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,14 @@ import java.time.LocalDateTime;
 @Slf4j
 public class Watcher {
     private final ExecutionTimeRecordService service;
+
+    /**
+     * Measures how long it takes to perform scheduled sending emails for subscribed users
+     *
+     * @param proceedingJoinPoint
+     * @return
+     * @throws Throwable
+     */
 
     @Around("execution(* com.kodilla.kodillafinalbackend.scheduler.NotificationScheduler.notifyAboutOffers(..))")
     public Object measureNotificationTime(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -42,5 +51,17 @@ public class Watcher {
         }
 
         return result;
+    }
+
+    /**
+     * Logs every usage of service classes
+     *
+     * @param input
+     * @param object
+     */
+    @Before("execution(* com.kodilla.kodillafinalbackend.service..*.*(..))" +
+            "&& args(input) && target(object)")
+    public void logServiceUsage(Object input, Object object) {
+        log.info("Class: " + object.getClass().getName() + ", Args: " + input.toString());
     }
 }
