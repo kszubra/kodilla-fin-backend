@@ -1,7 +1,9 @@
 package com.kodilla.kodillafinalbackend.aop;
 
 import com.kodilla.kodillafinalbackend.domain.ExecutionTimeRecord;
+import com.kodilla.kodillafinalbackend.domain.ServiceUsageRecord;
 import com.kodilla.kodillafinalbackend.service.ExecutionTimeRecordService;
+import com.kodilla.kodillafinalbackend.service.ServiceUsageRecordService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,7 +19,8 @@ import java.time.LocalDateTime;
 @Component
 @Slf4j
 public class Watcher {
-    private final ExecutionTimeRecordService service;
+    private final ExecutionTimeRecordService executionTimeRecordService;
+    private final ServiceUsageRecordService serviceUsageService;
 
     /**
      * Measures how long it takes to perform scheduled sending emails for subscribed users
@@ -43,7 +46,7 @@ public class Watcher {
                     .executionTime( executionTime )
                     .build();
 
-            service.addRecord( record );
+            executionTimeRecordService.addRecord( record );
             log.info("Added record = " + record.toString());
         } catch(Throwable throwable) {
             log.error(throwable.getMessage());
@@ -62,6 +65,11 @@ public class Watcher {
     @Before("execution(* com.kodilla.kodillafinalbackend.service..*.*(..))" +
             "&& args(input) && target(object)")
     public void logServiceUsage(Object input, Object object) {
-        log.info("Class: " + object.getClass().getName() + ", Args: " + input.toString());
+        ServiceUsageRecord record = ServiceUsageRecord.builder()
+                .whenExecuted( LocalDateTime.now() )
+                .serviceClass( object.getClass().getName() )
+                .methodArgument( input.toString() )
+                .build();
+        serviceUsageService.addRecord(record);
     }
 }
