@@ -1,5 +1,6 @@
 package com.kodilla.kodillafinalbackend.service;
 
+import com.kodilla.kodillafinalbackend.domain.ServiceUsageRecord;
 import com.kodilla.kodillafinalbackend.exceptions.UserEmailAlreadyExistsException;
 import com.kodilla.kodillafinalbackend.exceptions.UserNotFoundException;
 import com.kodilla.kodillafinalbackend.domain.User;
@@ -8,12 +9,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final ServiceUsageRecordService recordService;
 
     /**
      * Method checks if in database already exists user with email provided as @param
@@ -47,6 +50,14 @@ public class UserService {
         if( this.exists(user) ) {
             throw new UserEmailAlreadyExistsException();
         }
+
+        ServiceUsageRecord record = ServiceUsageRecord.builder()
+                .whenExecuted(LocalDateTime.now())
+                .serviceClass(this.getClass().getName())
+                .methodArgument("user")
+                .build();
+        recordService.addRecord(record);
+
         return userRepository.save(user);
     }
 

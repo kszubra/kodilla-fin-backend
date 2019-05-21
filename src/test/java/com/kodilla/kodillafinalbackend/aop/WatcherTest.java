@@ -1,6 +1,11 @@
 package com.kodilla.kodillafinalbackend.aop;
 
+import com.kodilla.kodillafinalbackend.domain.ExecutionTimeRecord;
+import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.scheduler.NotificationScheduler;
+import com.kodilla.kodillafinalbackend.service.ExecutionTimeRecordService;
+import com.kodilla.kodillafinalbackend.service.ServiceUsageRecordService;
+import com.kodilla.kodillafinalbackend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
 
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,14 +26,24 @@ import javax.transaction.Transactional;
 public class WatcherTest {
     @Autowired
     private NotificationScheduler scheduler;
+    @Autowired
+    ExecutionTimeRecordService executionTimeService;
+    @Autowired
+    ServiceUsageRecordService serviceUsageService;
+    @Autowired
+    UserService userService;
 
     @Test
-    @Transactional
     public void testMeasureNotificationTime() {
         //Given
-       scheduler.notifyAboutOffers();
+        executionTimeService.deleteAllRecords();
 
-       //then
+        //When
+        scheduler.notifyAboutOffers();
+        List<ExecutionTimeRecord> times = executionTimeService.getAllRecords();
+
+        //Then
+        assertEquals(1, times.size());
     }
 
 }
