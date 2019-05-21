@@ -27,7 +27,6 @@ public class CountryServiceTest {
         countryService.deleteAllCountries();
     }
 
-    @Transactional
     @Test
     public void testAddCountry() {
         //Given
@@ -43,7 +42,6 @@ public class CountryServiceTest {
         assertTrue(result.contains(testCountryOne));
     }
 
-    @Transactional
     @Test
     public void testGetCountryById() {
         //Given
@@ -60,7 +58,6 @@ public class CountryServiceTest {
         assertEquals(testCountryOne, result);
     }
 
-    @Transactional
     @Test
     public void testGetCountryByName() {
         //Given
@@ -77,7 +74,6 @@ public class CountryServiceTest {
         assertEquals(testCountryOne, result);
     }
 
-    @Transactional
     @Test
     public void testUpdateDatabase() {
         //Given
@@ -108,7 +104,6 @@ public class CountryServiceTest {
                 });
     }
 
-    @Transactional
     @Test(expected = CountryNotFoundException.class)
     public void testGettingCountryByNotExistingId() {
         //Given
@@ -119,7 +114,6 @@ public class CountryServiceTest {
         Country result = countryService.getCountryById(3L);
     }
 
-    @Transactional
     @Test(expected = CountryNotFoundException.class)
     public void testGettingCountryByNotExistingName() {
         //Given
