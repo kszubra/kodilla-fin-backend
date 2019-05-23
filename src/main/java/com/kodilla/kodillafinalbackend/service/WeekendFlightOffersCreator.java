@@ -25,6 +25,7 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class WeekendFlightOffersCreator {
+    private final FlightSearchRequestService requestService;
     private final NotificationPreferenceService notificationPreferenceService;
     private final SkyScannerFacade skyScannerFacade;
     private final WeatherClientFacade weatherClientFacade;
@@ -107,28 +108,28 @@ public class WeekendFlightOffersCreator {
                 /**
                  * Flight search when going there
                  */
-                requestsForPreference.add(
-                        FlightSearchRequest.builder()
-                                .departureCity( reversedCitiesAndAirports.get( departure.getAirportCode() ) )
-                                .departureAirport( departure.getAirportCode() )
-                                .destinationCity( reversedCitiesAndAirports.get( destination.getAirportCode() ) )
-                                .destinationAirport( destination.getAirportCode() )
-                                .departureDay( getNextFriday() )
-                                .build()
-                );
+                FlightSearchRequest thereRequest = FlightSearchRequest.builder()
+                        .departureCity( reversedCitiesAndAirports.get( departure.getAirportCode() ) )
+                        .departureAirport( departure.getAirportCode() )
+                        .destinationCity( reversedCitiesAndAirports.get( destination.getAirportCode() ) )
+                        .destinationAirport( destination.getAirportCode() )
+                        .departureDay( getNextFriday() )
+                        .build();
+                requestsForPreference.add(thereRequest);
+                requestService.addSearchRequest(thereRequest);
 
                 /**
                  * Swapping airports for return flight search request
                  */
-                requestsForPreference.add(
-                        FlightSearchRequest.builder()
-                                .departureCity( reversedCitiesAndAirports.get( destination.getAirportCode() )  )
-                                .departureAirport( destination.getAirportCode() )
-                                .destinationCity( reversedCitiesAndAirports.get( departure.getAirportCode() ) )
-                                .destinationAirport( departure.getAirportCode() )
-                                .departureDay( getSundayAfterDeparture() )
-                                .build()
-                );
+                FlightSearchRequest returnRequest = FlightSearchRequest.builder()
+                        .departureCity( reversedCitiesAndAirports.get( destination.getAirportCode() )  )
+                        .departureAirport( destination.getAirportCode() )
+                        .destinationCity( reversedCitiesAndAirports.get( departure.getAirportCode() ) )
+                        .destinationAirport( departure.getAirportCode() )
+                        .departureDay( getSundayAfterDeparture() )
+                        .build();
+                requestsForPreference.add(returnRequest);
+                requestService.addSearchRequest(returnRequest);
             }
         }
 

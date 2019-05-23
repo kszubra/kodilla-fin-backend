@@ -101,8 +101,8 @@ public class FlightConnectionOffersCreatorTestWithWeather {
          */
 
         //Then
-        assertEquals(6, result.size());
         result.forEach(System.out::println);
+        assertEquals(6, result.size());
     }
 
     @Test
