@@ -1,19 +1,14 @@
 package com.kodilla.kodillafinalbackend.scheduler;
 
 import com.kodilla.kodillafinalbackend.config.AdminConfig;
-import com.kodilla.kodillafinalbackend.domain.Mail;
-import com.kodilla.kodillafinalbackend.domain.NotificationPreference;
-import com.kodilla.kodillafinalbackend.domain.TripOffer;
-import com.kodilla.kodillafinalbackend.domain.User;
-import com.kodilla.kodillafinalbackend.service.EmailCreatorService;
-import com.kodilla.kodillafinalbackend.service.SimpleEmailService;
-import com.kodilla.kodillafinalbackend.service.UserService;
-import com.kodilla.kodillafinalbackend.service.WeekendFlightOffersCreator;
+import com.kodilla.kodillafinalbackend.domain.*;
+import com.kodilla.kodillafinalbackend.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +21,7 @@ public class NotificationScheduler {
     private final SimpleEmailService simpleEmailService;
     private final AdminConfig adminConfig;
     private final WeekendFlightOffersCreator offersCreator;
+    private final MailSentRecordService mailRecordService;
 
     private static final String SUBJECT = "New flights matching your preferences";
 
@@ -76,6 +72,9 @@ public class NotificationScheduler {
                     .message(entry.getValue())
                     .build()
             );
+
+            MailSentRecord record = new MailSentRecord(LocalDateTime.now(), entry.getKey());
+            mailRecordService.addRecord(record);
         }
     }
 }

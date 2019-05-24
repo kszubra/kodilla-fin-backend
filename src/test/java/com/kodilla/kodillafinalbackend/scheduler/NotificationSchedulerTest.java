@@ -2,6 +2,7 @@ package com.kodilla.kodillafinalbackend.scheduler;
 
 import com.kodilla.kodillafinalbackend.config.AdminConfig;
 import com.kodilla.kodillafinalbackend.domain.*;
+import com.kodilla.kodillafinalbackend.service.MailSentRecordService;
 import com.kodilla.kodillafinalbackend.service.SimpleEmailService;
 import com.kodilla.kodillafinalbackend.service.WeekendFlightOffersCreator;
 import org.junit.Test;
@@ -24,6 +25,8 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 public class NotificationSchedulerTest {
     @InjectMocks
     private NotificationScheduler notificationScheduler;
+    @Mock
+    private MailSentRecordService mailSentRecordService;
     @Mock
     private AdminConfig adminConfig;
     @Mock
