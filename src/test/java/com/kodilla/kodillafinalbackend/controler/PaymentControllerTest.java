@@ -5,6 +5,7 @@ import com.kodilla.kodillafinalbackend.domain.Payment;
 import com.kodilla.kodillafinalbackend.domain.dto.PaymentDto;
 import com.kodilla.kodillafinalbackend.enumeration.PaymentStatus;
 import com.kodilla.kodillafinalbackend.mapper.PaymentMapper;
+import com.kodilla.kodillafinalbackend.repository.StartupArgsRepository;
 import com.kodilla.kodillafinalbackend.service.PaymentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PaymentControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private StartupArgsRepository repository;
     @MockBean
     private PaymentService paymentService;
     @MockBean

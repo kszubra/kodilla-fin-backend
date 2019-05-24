@@ -34,7 +34,7 @@ public class CoreConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**"); //TODO: change for new directory when ready
+        registry.addMapping("/**");
     }
 
     @Bean

@@ -9,6 +9,7 @@ import com.kodilla.kodillafinalbackend.domain.dto.ReservationDto;
 import com.kodilla.kodillafinalbackend.enumeration.PaymentStatus;
 import com.kodilla.kodillafinalbackend.mapper.PaymentMapper;
 import com.kodilla.kodillafinalbackend.mapper.ReservationMapper;
+import com.kodilla.kodillafinalbackend.repository.StartupArgsRepository;
 import com.kodilla.kodillafinalbackend.service.PaymentService;
 import com.kodilla.kodillafinalbackend.service.ReservationService;
 import org.junit.Test;
@@ -37,6 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ReservationControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private StartupArgsRepository repository;
     @MockBean
     private PaymentService paymentService;
     @MockBean

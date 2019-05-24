@@ -1,7 +1,6 @@
 package com.kodilla.kodillafinalbackend.aop;
 
 import com.kodilla.kodillafinalbackend.domain.ExecutionTimeRecord;
-import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.scheduler.NotificationScheduler;
 import com.kodilla.kodillafinalbackend.service.ExecutionTimeRecordService;
 import com.kodilla.kodillafinalbackend.service.ServiceUsageRecordService;
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.*;

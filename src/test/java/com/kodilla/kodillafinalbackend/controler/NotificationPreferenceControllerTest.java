@@ -7,11 +7,13 @@ import com.kodilla.kodillafinalbackend.domain.dto.NotificationPreferenceDto;
 import com.kodilla.kodillafinalbackend.domain.dto.UserDto;
 import com.kodilla.kodillafinalbackend.mapper.NotificationPreferenceMapper;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
+import com.kodilla.kodillafinalbackend.repository.StartupArgsRepository;
 import com.kodilla.kodillafinalbackend.service.NotificationPreferenceService;
 import com.kodilla.kodillafinalbackend.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -36,6 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NotificationPreferenceControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private StartupArgsRepository repository;
     @MockBean
     private NotificationPreferenceService preferenceService;
     @MockBean

@@ -5,6 +5,7 @@ import com.kodilla.kodillafinalbackend.domain.User;
 import com.kodilla.kodillafinalbackend.domain.dto.UserDto;
 import com.kodilla.kodillafinalbackend.domain.dto.UserRegistrationDto;
 import com.kodilla.kodillafinalbackend.mapper.UserMapper;
+import com.kodilla.kodillafinalbackend.repository.StartupArgsRepository;
 import com.kodilla.kodillafinalbackend.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private StartupArgsRepository repository;
     @MockBean
     private UserService userService;
     @MockBean
