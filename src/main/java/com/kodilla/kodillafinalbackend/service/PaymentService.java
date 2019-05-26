@@ -2,7 +2,6 @@ package com.kodilla.kodillafinalbackend.service;
 
 import com.kodilla.kodillafinalbackend.domain.Payment;
 import com.kodilla.kodillafinalbackend.domain.ServiceUsageRecord;
-import com.kodilla.kodillafinalbackend.enumeration.PaymentStatus;
 import com.kodilla.kodillafinalbackend.exceptions.PaymentNotFoundException;
 import com.kodilla.kodillafinalbackend.repository.PaymentRepository;
 import lombok.AllArgsConstructor;

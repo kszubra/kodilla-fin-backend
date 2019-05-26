@@ -3,7 +3,6 @@ package com.kodilla.kodillafinalbackend.domain.dto;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Getter
 @Setter

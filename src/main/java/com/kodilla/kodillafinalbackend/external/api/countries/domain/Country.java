@@ -1,7 +1,6 @@
 package com.kodilla.kodillafinalbackend.external.api.countries.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;

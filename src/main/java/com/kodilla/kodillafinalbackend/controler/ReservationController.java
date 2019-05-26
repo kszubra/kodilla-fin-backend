@@ -67,12 +67,12 @@ public class ReservationController {
         if(! reservation.getThereFlightDepartureAirportCode().equals( updatingDto.getThereFlightDepartureAirportCode() )) { reservation.setThereFlightDepartureAirportCode( updatingDto.getThereFlightDepartureAirportCode() ); }
         if(! reservation.getThereFlightDestinationCity().equals( updatingDto.getThereFlightDestinationCity() )) { reservation.setThereFlightDestinationCity( updatingDto.getThereFlightDestinationCity() ); }
         if(! reservation.getThereFlightDestinationAirportCode().equals( updatingDto.getThereFlightDestinationAirportCode() )) { reservation.setThereFlightDestinationAirportCode( updatingDto.getThereFlightDestinationAirportCode() ); }
-        if(! reservation.getThereFlightDate().equals( updatingDto.getThereFlightDate() )) { reservation.setThereFlightDate(LocalDate.parse(updatingDto.getThereFlightDate())); }
+        if(! reservation.getThereFlightDate().equals( LocalDate.parse( updatingDto.getThereFlightDate() ) )) { reservation.setThereFlightDate(LocalDate.parse(updatingDto.getThereFlightDate())); }
         if(! reservation.getReturnFlightDepartureCity().equals( updatingDto.getReturnFlightDepartureCity() )) { reservation.setReturnFlightDepartureCity( updatingDto.getReturnFlightDepartureCity() ); }
         if(! reservation.getReturnFlightDepartureAirportCode().equals( updatingDto.getReturnFlightDepartureAirportCode() )) { reservation.setReturnFlightDepartureAirportCode( updatingDto.getReturnFlightDepartureAirportCode() ); }
         if(! reservation.getReturnFlightDestinationCity().equals( updatingDto.getReturnFlightDestinationCity() )) { reservation.setReturnFlightDestinationCity( updatingDto.getReturnFlightDestinationCity() ); }
         if(! reservation.getReturnFlightDestinationAirportCode().equals( updatingDto.getReturnFlightDestinationAirportCode() )) { reservation.setReturnFlightDestinationAirportCode( updatingDto.getReturnFlightDestinationAirportCode() ); }
-        if(! reservation.getReturnFlightDate().equals( updatingDto.getReturnFlightDate() )) { reservation.setReturnFlightDate( LocalDate.parse(updatingDto.getReturnFlightDate()) ); }
+        if(! reservation.getReturnFlightDate().equals( LocalDate.parse( updatingDto.getReturnFlightDate() ) )) { reservation.setReturnFlightDate( LocalDate.parse(updatingDto.getReturnFlightDate()) ); }
         if(! reservation.getName().equals( updatingDto.getName() )) { reservation.setName( updatingDto.getName() ); }
         if(! reservation.getSurname().equals( updatingDto.getSurname() )) { reservation.setSurname( updatingDto.getSurname() ); }
         if(! reservation.getEmail().equals( updatingDto.getEmail() )) { reservation.setEmail( updatingDto.getEmail() ); }

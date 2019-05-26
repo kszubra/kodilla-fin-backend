@@ -3,7 +3,6 @@ package com.kodilla.kodillafinalbackend.domain.dto;
 import com.kodilla.kodillafinalbackend.enumeration.PaymentStatus;
 import lombok.*;
 
-
 import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
