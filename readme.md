@@ -20,7 +20,7 @@ Endpoints are described with Swagger: https://arcane-beach-81614.herokuapp.com/w
 
 # 5. RUNNING PROJECT LOCALLY
 
-1. Add your email and password in application.properties of main and tests folder. Due to repository being public, those
+1. Add your email and password in application.properties of main and tests folder. Due to repository being public, this
 data was removed for security reasons.  
 2. Adjust connection with your local database in application.properties file
 3. Adjust build.gradle for database dependencies you're going to use
