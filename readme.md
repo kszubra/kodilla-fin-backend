@@ -1,6 +1,7 @@
 # 1. PROJECT DESCRIPTION
 
-Simple backend mechanics for a portal informing about flight offers due to given criteria and sending notification emails.
+Simple backend mechanics for a portal informing about flight offers for the upcoming weekend due to given criteria and sending notification emails.
+User provides departure and destination city, maximum total price for the trip and minimum temperature expected at destination city during the weekend.
 
 Allows adding users, notification preferences and simple base for creating reservations and payments, but without any business
 implementation. 
