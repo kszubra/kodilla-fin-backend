@@ -20,14 +20,16 @@ Endpoints are described with Swagger: https://arcane-beach-81614.herokuapp.com/w
 
 # 5. RUNNING PROJECT LOCALLY
 
-1. Add your email and password in application.properties of main and tests folder. Due to repository being public, this
+Add your email and password in application.properties of main and tests folder. Due to repository being public, this
 data was removed for security reasons.  
-2. Adjust connection with your local database in application.properties file
-3. Adjust build.gradle for database dependencies you're going to use
+
 
 # 6. BUGS AND ISSUES  
 
-Idea for the project, design and execution of the project was performed within a month and was driven by fulfilling
+1. Idea for the project, design and execution of the project was performed within a month and was driven by fulfilling
 quantity requirements. As a consequence project is only a demo and contains issues which proper solving would require
 re-designing whole project. 
+
+2. Project uses free API's that have very limited amount of requests allowed. Handling too many notification
+requests can cause errors.
 

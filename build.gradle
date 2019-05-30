@@ -35,10 +35,10 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')
 
     //HEROKU DATABASE
-    runtimeOnly 'org.postgresql:postgresql'
+    //runtimeOnly 'org.postgresql:postgresql'
 
     //LOCAL DATABASE
-    //runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'mysql:mysql-connector-java'
 
     //TEST DATABASE
     testRuntime('com.h2database:h2')
