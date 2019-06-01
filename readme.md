@@ -32,5 +32,5 @@ quantity requirements. As a consequence project is only a demo and contains issu
 re-designing whole project. 
 
 2. Project uses free API's that have very limited amount of requests allowed. Handling too many notification
-requests can cause errors.
+requests can cause 500-errors.
 
