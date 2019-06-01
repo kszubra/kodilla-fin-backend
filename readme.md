@@ -13,7 +13,9 @@ Scheduled notifications are disabled in demo to avoid spamming emails.
 
 # 3. FRONT-END REPOSITORY
 
-https://github.com/kszubra/kodilla-fin-frontend
+Due to not being an accepted version, code is in the working branch, not master.
+
+https://github.com/kszubra/kodilla-fin-frontend/tree/Main_Project_WIP
 
 # 4. ENDPOINTS
 
