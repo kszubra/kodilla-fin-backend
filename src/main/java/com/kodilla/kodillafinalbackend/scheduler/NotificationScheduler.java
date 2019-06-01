@@ -60,7 +60,7 @@ public class NotificationScheduler {
     /**
      * Every 4 hours checks for offers mathcing preferences and sends emails if finds ones
      */
-    @Scheduled(fixedDelay = 14400000)
+    //@Scheduled(fixedDelay = 14400000)
     public void notifyAboutOffers(){
          Map<String, String> emailAndOfferMessage = getEmailAndOfferMessage( offersCreator.getPreferencesAndOffers() );
 
