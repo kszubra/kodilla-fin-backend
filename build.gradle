@@ -5,7 +5,9 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
 
 group = 'com.kodilla'
 version = '0.0.1-SNAPSHOT'
@@ -26,9 +28,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // AOP
+    compile('org.springframework.boot:spring-boot-starter-aop')
+
+    //HEROKU DATABASE
+    //runtimeOnly 'org.postgresql:postgresql'
+
+    //LOCAL DATABASE
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    //TEST DATABASE
+    testRuntime('com.h2database:h2')
 
     //EMAIL
     implementation 'org.springframework.boot:spring-boot-starter-mail'
@@ -46,14 +59,8 @@ dependencies {
     //SWAGGER
     compile('io.springfox:springfox-swagger2:2.7.0')
     compile('io.springfox:springfox-swagger-ui:2.7.0')
-
-    //RUNTIME DATABASE
-    //runtimeOnly 'org.postgresql:postgresql'
-
-    //TRY DATABASE
-    runtimeOnly 'mysql:mysql-connector-java'
-
-    //TEST DATABASE
-    testRuntime('com.h2database:h2')
+    
+    //THYMELEAF
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 }
